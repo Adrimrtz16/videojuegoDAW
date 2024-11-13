@@ -2,21 +2,20 @@ window.onload = function() {
 
     const topeDerecha = 1850;
     const topeIzquierda = 0;
-    const suelo = 831;
+    const suelo = 940 - 54;
 
     let fondo, ctxFondo, frente, ctxFrente;
     let xDerecha, xIzquierda, correr, saltar;
-
-    let idPersonaje
+    let posicionChoque;
 
     function Personaje() {
         this.x = 120;
         this.y = suelo;
-        this.velocidad = 1; 
+        this.velocidad = 1.5; 
         this.velocidadSalto = 3; 
-        this.velocidadCaida = 1;
-        this.tamañoX = 70;
-        this.tamañoY = 70;
+        this.velocidadCaida = 0.4;
+        this.tamañoX = 55;
+        this.tamañoY = 55;
         this.yAntesDelSalto;
         this.haSaltado = false;
         this.haLLegadoArriba = false;
@@ -138,20 +137,19 @@ window.onload = function() {
     }
  
     Plataforma.prototype.personajeCayendo = function(posicionChoque) {
-        
+            
         if (colisionCompleta(protagonista, this)) {
-                protagonista.y = this.y - protagonista.tamañoY + 1 - posicionChoque;
-                protagonista.aterrizado = true;
+            protagonista.y = Math.ceil(this.y - protagonista.tamañoY) //+ 1 - posicionChoque;
+            protagonista.aterrizado = true;
         } else {
+            protagonista.y += protagonista.velocidadCaida;
+            if(protagonista.y >= suelo) {
+                protagonista.y = suelo;
+                protagonista.aterrizado = true;
+            }
                 
-                if(protagonista.y >= suelo) {
-                    protagonista.y = suelo;
-                    protagonista.aterrizado = true;
-                } else {
-                    protagonista.y += protagonista.velocidadCaida;
-                }
-        
         }
+        
     }
 
 
@@ -183,7 +181,7 @@ window.onload = function() {
         }
         if (!saltar) {
             plataformas.forEach((plataforma, indice) => {
-                let posicionChoque = plataformas.length - (indice+1)
+                posicionChoque = plataformas.length - (indice+1)
                 plataforma.personajeCayendo(posicionChoque);
             });
         }
@@ -192,13 +190,15 @@ window.onload = function() {
         ctxFrente.fillStyle = "#da3737";
         ctxFrente.fillRect(protagonista.x, protagonista.y, protagonista.tamañoX, protagonista.tamañoY);
 
+        
+        console.log(protagonista.y + protagonista.tamañoY)
     }
 
     function fondoNivel1() {
         ctxFondo.fillStyle = "#bef3ff"; 
-        ctxFondo.fillRect(0, 0, 1920, 900); // cielo
+        ctxFondo.fillRect(0, 0, 1920, 940); 
         ctxFondo.fillStyle = "#683415";
-        ctxFondo.fillRect(0, 900, 1920, 180);
+        ctxFondo.fillRect(0, 940, 1920, 180);
         
 
         plataformas.forEach(plataforma => {
@@ -210,7 +210,6 @@ window.onload = function() {
         ctxFondo.strokeStyle = 'black';     
         ctxFondo.lineWidth = 4;
 
-        // Dibuja el texto en las coordenadas (x, y)
         ctxFondo.fillText('Tutorial', 50, 100);
         ctxFondo.strokeText('Tutorial', 50, 100);
         
@@ -281,9 +280,13 @@ window.onload = function() {
 
     let protagonista = new Personaje();
     let plataformas = [
-        new Plataforma(500, 750, 400, 40),
-        new Plataforma(1000, 700, 400, 40),
-        new Plataforma(1500, 650, 400, 40)
+        new Plataforma(400, 800, 100, 140),
+        new Plataforma(600, 700, 250, 45),
+        new Plataforma(850, 180, 80, 770),
+        new Plataforma(0, 600, 505, 45),
+        new Plataforma(460, 546, 45, 60),
+        new Plataforma(0, 325, 505, 45),
+        new Plataforma(0, 180, 600, 45)
     ]
     
     fondoNivel1();
