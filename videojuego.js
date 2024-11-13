@@ -138,15 +138,19 @@ window.onload = function() {
     }
  
     Plataforma.prototype.personajeCayendo = function(posicionChoque) {
+        
         if (colisionCompleta(protagonista, this)) {
                 protagonista.y = this.y - protagonista.tamañoY + 1 - posicionChoque;
                 protagonista.aterrizado = true;
         } else {
-                protagonista.y += protagonista.velocidadCaida;
+                
                 if(protagonista.y >= suelo) {
                     protagonista.y = suelo;
                     protagonista.aterrizado = true;
-                } 
+                } else {
+                    protagonista.y += protagonista.velocidadCaida;
+                }
+        
         }
     }
 
@@ -195,12 +199,20 @@ window.onload = function() {
         ctxFondo.fillRect(0, 0, 1920, 900); // cielo
         ctxFondo.fillStyle = "#683415";
         ctxFondo.fillRect(0, 900, 1920, 180);
+        
 
         plataformas.forEach(plataforma => {
             ctxFondo.fillRect(plataforma.x, plataforma.y, plataforma.tamañoX, plataforma.tamañoY); 
         });
         
-        
+        ctxFondo.font = 'bold 100px arial';
+        ctxFondo.fillStyle = 'white';
+        ctxFondo.strokeStyle = 'black';     
+        ctxFondo.lineWidth = 4;
+
+        // Dibuja el texto en las coordenadas (x, y)
+        ctxFondo.fillText('Tutorial', 50, 100);
+        ctxFondo.strokeText('Tutorial', 50, 100);
         
     }
 
