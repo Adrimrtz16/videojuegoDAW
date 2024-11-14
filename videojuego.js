@@ -139,7 +139,7 @@ window.onload = function() {
     Plataforma.prototype.personajeCayendo = function(posicionChoque) {
             
         if (colisionCompleta(protagonista, this)) {
-            protagonista.y = Math.ceil(this.y - protagonista.tamañoY) //+ 1 - posicionChoque;
+            protagonista.y = (this.y - protagonista.tamañoY - 3.19) +posicionChoque;
             protagonista.aterrizado = true;
         } else {
             protagonista.y += protagonista.velocidadCaida;
@@ -181,8 +181,8 @@ window.onload = function() {
         }
         if (!saltar) {
             plataformas.forEach((plataforma, indice) => {
-                posicionChoque = plataformas.length - (indice+1)
-                plataforma.personajeCayendo(posicionChoque);
+                
+                plataforma.personajeCayendo(indice/2);
             });
         }
         
@@ -213,6 +213,7 @@ window.onload = function() {
         ctxFondo.fillText('Tutorial', 50, 100);
         ctxFondo.strokeText('Tutorial', 50, 100);
         
+        console.log(protagonista.y - protagonista.tamañoY)
     }
 
     function activaMovimiento(evt) {
@@ -285,8 +286,10 @@ window.onload = function() {
         new Plataforma(850, 180, 80, 770),
         new Plataforma(0, 600, 505, 45),
         new Plataforma(460, 546, 45, 60),
-        new Plataforma(0, 325, 505, 45),
-        new Plataforma(0, 180, 600, 45)
+        new Plataforma(0, 325, 460, 45),
+        new Plataforma(0, 180, 600, 45),
+        new Plataforma(555, -100, 45, 300),
+        new Plataforma(725, 280, 200, 45)
     ]
     
     fondoNivel1();
