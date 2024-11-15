@@ -1,8 +1,7 @@
 window.onload = function() {
 
-    const topeDerecha = 1850;
+    const topeDerecha = 1920-55;
     const topeIzquierda = 0;
-    const suelo = 940 - 54;
 
     let fondo, ctxFondo, frente, ctxFrente;
     let xDerecha, xIzquierda, correr, saltar;
@@ -10,7 +9,7 @@ window.onload = function() {
 
     function Personaje() {
         this.x = 120;
-        this.y = suelo;
+        this.y = 895;
         this.velocidad = 1.5; 
         this.velocidadSalto = 3; 
         this.velocidadCaida = 0.4;
@@ -66,7 +65,7 @@ window.onload = function() {
             }
     
         }
-    
+
         if (this.haLLegadoArriba === true) {
     
             this.y += this.velocidadSalto;
@@ -143,10 +142,6 @@ window.onload = function() {
             protagonista.aterrizado = true;
         } else {
             protagonista.y += protagonista.velocidadCaida;
-            if(protagonista.y >= suelo) {
-                protagonista.y = suelo;
-                protagonista.aterrizado = true;
-            }
                 
         }
         
@@ -196,9 +191,8 @@ window.onload = function() {
 
     function fondoNivel1() {
         ctxFondo.fillStyle = "#bef3ff"; 
-        ctxFondo.fillRect(0, 0, 1920, 940); 
+        ctxFondo.fillRect(0, 0, 1920, 1080); 
         ctxFondo.fillStyle = "#683415";
-        ctxFondo.fillRect(0, 940, 1920, 180);
         
 
         plataformas.forEach(plataforma => {
@@ -281,15 +275,17 @@ window.onload = function() {
 
     let protagonista = new Personaje();
     let plataformas = [
+        new Plataforma(0, 940, 930, 180),
         new Plataforma(400, 800, 100, 140),
         new Plataforma(600, 700, 250, 45),
         new Plataforma(850, 180, 80, 770),
         new Plataforma(0, 600, 505, 45),
         new Plataforma(460, 546, 45, 60),
         new Plataforma(0, 325, 460, 45),
-        new Plataforma(0, 180, 600, 45),
-        new Plataforma(555, -100, 45, 300),
-        new Plataforma(725, 280, 200, 45)
+        new Plataforma(725, 280, 200, 45),
+        new Plataforma(1150, 280, 200, 45),
+        new Plataforma(1500, 380, 200, 45),
+        new Plataforma(1450, 940, 300, 45)
     ]
     
     fondoNivel1();
