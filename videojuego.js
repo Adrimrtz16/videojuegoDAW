@@ -1,5 +1,11 @@
 window.onload = function() {
 
+    let imgPlataformasNivel1 = new Image;
+    imgPlataformasNivel1.src = 'imagenes/plataformasLvl1.png';
+
+    let imgFondoNivel1 = new Image();
+    imgFondoNivel1.src = 'imagenes/00.png';
+
     const topeDerecha = 1920-55;
     const topeIzquierda = 0;
 
@@ -190,14 +196,15 @@ window.onload = function() {
     }
 
     function fondoNivel1() {
-        ctxFondo.fillStyle = "#bef3ff"; 
-        ctxFondo.fillRect(0, 0, 1920, 1080); 
+        ctxFondo.drawImage(imgFondoNivel1, 0, 0, fondo.width, fondo.height); 
         ctxFondo.fillStyle = "#683415";
         
 
-        plataformas.forEach(plataforma => {
+        /*plataformas.forEach(plataforma => {
             ctxFondo.fillRect(plataforma.x, plataforma.y, plataforma.tamañoX, plataforma.tamañoY); 
-        });
+        });*/
+
+        ctxFondo.drawImage(imgPlataformasNivel1, 0, 0, fondo.width, fondo.height); 
         
         ctxFondo.font = 'bold 100px arial';
         ctxFondo.fillStyle = 'white';
@@ -275,23 +282,25 @@ window.onload = function() {
 
     let protagonista = new Personaje();
     let plataformas = [
-        new Plataforma(0, 940, 930, 180),
-        new Plataforma(400, 800, 100, 140),
-        new Plataforma(600, 700, 250, 45),
-        new Plataforma(850, 180, 80, 770),
-        new Plataforma(0, 600, 505, 45),
-        new Plataforma(460, 546, 45, 60),
-        new Plataforma(0, 325, 460, 45),
-        new Plataforma(725, 280, 200, 45),
-        new Plataforma(1150, 280, 200, 45),
-        new Plataforma(1500, 380, 200, 45),
-        new Plataforma(1450, 940, 300, 45)
+        new Plataforma(0, 960, 1024, 192),
+        new Plataforma(384, 832, 128, 128),
+        new Plataforma(640, 704, 256, 64),
+        new Plataforma(896, 192, 128, 768),
+        new Plataforma(0, 576, 512, 64),
+        new Plataforma(448, 512, 64, 64),
+        new Plataforma(0, 320, 448, 64),
+        new Plataforma(704, 256, 192, 64),
+        new Plataforma(1152, 256, 192, 64),
+        new Plataforma(1536, 320, 192, 64),
+        new Plataforma(1472, 896, 320, 64)
     ]
+    imgFondoNivel1.onload = function () {
+        fondoNivel1();
+    };
     
-    fondoNivel1();
 
     idPersonaje = setInterval(moverPersonaje,1);
-
+    
 }
 
 
