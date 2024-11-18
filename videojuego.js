@@ -6,6 +6,9 @@ window.onload = function() {
     let imgFondoNivel1 = new Image();
     imgFondoNivel1.src = 'imagenes/00.png';
 
+    let imgTituloNivel = new Image();
+    imgTituloNivel.src = 'imagenes/cardShine005.png';
+
     const topeDerecha = 1920-55;
     const topeIzquierda = 0;
 
@@ -205,14 +208,15 @@ window.onload = function() {
         });*/
 
         ctxFondo.drawImage(imgPlataformasNivel1, 0, 0, fondo.width, fondo.height); 
+        ctxFondo.drawImage(imgTituloNivel, 0, 0, 470, 150); 
         
         ctxFondo.font = 'bold 100px arial';
         ctxFondo.fillStyle = 'white';
         ctxFondo.strokeStyle = 'black';     
         ctxFondo.lineWidth = 4;
 
-        ctxFondo.fillText('Tutorial', 50, 100);
-        ctxFondo.strokeText('Tutorial', 50, 100);
+        ctxFondo.fillText('Tutorial', 50, 105);
+        ctxFondo.strokeText('Tutorial', 50, 105);
         
         console.log(protagonista.y - protagonista.tamañoY)
     }
