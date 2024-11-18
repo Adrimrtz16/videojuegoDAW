@@ -17,7 +17,7 @@ window.onload = function() {
         this.x = 120;
         this.y = 895;
         this.velocidad = 1.5; 
-        this.velocidadSalto = 3; 
+        this.velocidadSalto = 3.5; 
         this.velocidadCaida = 0.4;
         this.tamañoX = 55;
         this.tamañoY = 55;
@@ -144,7 +144,7 @@ window.onload = function() {
     Plataforma.prototype.personajeCayendo = function(posicionChoque) {
             
         if (colisionCompleta(protagonista, this)) {
-            protagonista.y = (this.y - protagonista.tamañoY - 3.19) +posicionChoque;
+            protagonista.y = (this.y - protagonista.tamañoY) - protagonista.velocidadSalto - protagonista.velocidadCaida + -0.099 + posicionChoque;
             protagonista.aterrizado = true;
         } else {
             protagonista.y += protagonista.velocidadCaida;
@@ -183,7 +183,7 @@ window.onload = function() {
         if (!saltar) {
             plataformas.forEach((plataforma, indice) => {
                 
-                plataforma.personajeCayendo(indice/2);
+                plataforma.personajeCayendo(indice*0.5);
             });
         }
         
