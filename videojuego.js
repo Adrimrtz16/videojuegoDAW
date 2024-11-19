@@ -3,6 +3,7 @@ window.onload = function() {
     let protagonista = new Personaje();
 
     let plataformas = [
+        new Plataforma(0, 0, 0, 0),
         new Plataforma(0, 960, 1024, 192),
         new Plataforma(384, 832, 128, 128),
         new Plataforma(640, 704, 256, 64),
@@ -36,16 +37,17 @@ window.onload = function() {
         this.x = 120;
         this.y = 896;
         this.velocidad = 1.5; 
-        this.velocidadSalto = 3.5; 
-        this.velocidadCaida = 0.4;
+        this.velocidadSalto = 3.25; 
+        this.velocidadCaida = 3.25;
         this.tamañoX = 64;
         this.tamañoY = 64;
         this.yAntesDelSalto;
         this.haSaltado = false;
         this.haLLegadoArriba = false;
         this.aterrizado = true;
+        this.saltarEnAire = true;
     }
-
+    
     Personaje.prototype.generaPosicionDerecha = function() {
 
         this.x += this.velocidad;
@@ -79,10 +81,10 @@ window.onload = function() {
             this.yAntesDelSalto = this.y;
             this.haSaltado = true;
             this.haLLegadoArriba = false;
+            this.saltarEnAire = false;
         }
     
         if (this.haLLegadoArriba === false) {
-    
             this.y -= this.velocidadSalto;
     
             if (this.y <= this.yAntesDelSalto - 250) {
@@ -92,7 +94,6 @@ window.onload = function() {
         }
 
         if (this.haLLegadoArriba === true) {
-    
             this.y += this.velocidadSalto;
     
             if (this.y >= this.yAntesDelSalto) {
@@ -101,7 +102,7 @@ window.onload = function() {
                 saltar = false;
                 this.haSaltado = false;
                 this.haLLegadoArriba = false;
-    
+                
             }
         }
         
@@ -141,19 +142,17 @@ window.onload = function() {
     }
 
     Plataforma.prototype.colisionConPlataformaAlSaltar = function () {
-        
-        protagonista.aterrizado = false;
-
         if(colisionCompleta(protagonista,this)){
             if(protagonista.x + protagonista.tamañoX === this.x){
                 protagonista.x = this.x - protagonista.tamañoX;
                 
             } else if (protagonista.haLLegadoArriba){
-                protagonista.y = this.y - protagonista.tamañoY +1
+                protagonista.y = this.y - protagonista.tamañoY + 1;
                 saltar = false;
                 protagonista.haSaltado = false;
                 protagonista.haLLegadoArriba = false;
                 protagonista.aterrizado = true;
+                protagonista.saltarEnAire = true;
             }
 
             protagonista.haLLegadoArriba = true;
@@ -161,19 +160,27 @@ window.onload = function() {
             }
         
     }
-        Plataforma.prototype.personajeCayendo = function() {
-            // Verificamos si hay colisión con la plataforma
-            if (colisionCompleta(protagonista, this)) {
-                // Ajustamos exactamente la posición del personaje a la parte superior de la plataforma
-                protagonista.y = (this.y - protagonista.tamañoY);
-                protagonista.aterrizado = true;
-            } else if (protagonista.aterrizado === false) {
-                protagonista.y += protagonista.velocidadCaida;
-            }
+
+    Plataforma.prototype.personajeCayendo = function() {
         
-            // Limitar el valor de "y" para evitar acumulación de decimales
-            //protagonista.y = Math.round(protagonista.y * 100) / 100;
-        };
+        // Verificamos si hay colisión con la plataforma
+        if (colisionCompleta(protagonista, this)) {
+            // Ajustamos exactamente la posición del personaje a la parte superior de la plataforma
+            protagonista.y = (this.y - protagonista.tamañoY);
+            protagonista.aterrizado = true;
+        } else if (protagonista.aterrizado === false) {
+
+            protagonista.y += protagonista.velocidadCaida;
+
+            if(protagonista.saltarEnAire === true) {
+                protagonista.aterrizado = true;
+            }
+            
+        }
+
+        
+        
+    }
     
 
     function moverPersonaje() {
@@ -202,39 +209,39 @@ window.onload = function() {
                 plataforma.colisionConPlataformaAlSaltar();
             });
         }
-        /*if (!saltar) {
+        if (!saltar) {
+            protagonista.aterrizado = false;
             plataformas.forEach(plataforma => {     
                 plataforma.personajeCayendo();
             });
-        }*/
+        }
         
         ctxFrente.clearRect(0, 0, 1920, 1080);
         ctxFrente.fillStyle = "#da3737";
         ctxFrente.fillRect(protagonista.x, protagonista.y, protagonista.tamañoX, protagonista.tamañoY);
-
         
         //console.log(protagonista.y + protagonista.tamañoY)
     }
 
     function fondoNivel1() {
-        //ctxFondo.drawImage(imgFondoNivel1, 0, 0, fondo.width, fondo.height); 
+        ctxFondo.drawImage(imgFondoNivel1, 0, 0, fondo.width, fondo.height); 
         ctxFondo.fillStyle = "#683415";
         
 
-        plataformas.forEach(plataforma => {
+        /*plataformas.forEach(plataforma => {
             ctxFondo.fillRect(plataforma.x, plataforma.y, plataforma.tamañoX, plataforma.tamañoY); 
-        });
+        });*/
 
-        //ctxFondo.drawImage(imgPlataformasNivel1, 0, 0, fondo.width, fondo.height); 
-        //ctxFondo.drawImage(imgTituloNivel, 0, 0, 470, 150); 
+        ctxFondo.drawImage(imgPlataformasNivel1, 0, 0, fondo.width, fondo.height); 
+        ctxFondo.drawImage(imgTituloNivel, 0, 0, 470, 150); 
         
         ctxFondo.font = 'bold 100px arial';
         ctxFondo.fillStyle = 'white';
         ctxFondo.strokeStyle = 'black';     
         ctxFondo.lineWidth = 4;
 
-        //ctxFondo.fillText('Tutorial', 50, 105);
-        //ctxFondo.strokeText('Tutorial', 50, 105);
+        ctxFondo.fillText('Tutorial', 50, 105);
+        ctxFondo.strokeText('Tutorial', 50, 105);
         
     }
 
@@ -284,14 +291,27 @@ window.onload = function() {
             obj1.y + obj1.tamañoY > obj2.y
         ) {
             colision = true;
-            
         }
 
-        console.log("colision:"+colision)
         return colision;
 
     }
 
+    function colisionArriba(obj1, obj2) {
+
+        let colision = false
+
+        if(obj1.x < obj2.x + obj2.tamañoX && 
+            obj1.x + obj1.tamañoX > obj2.x &&
+            obj1.y < obj2.y + obj2.tamañoY &&
+            obj1.y + obj1.tamañoY > obj2.y 
+        ) {
+            colision = true;
+        }
+
+        return colision;
+
+    }
     document.addEventListener("keydown", activaMovimiento, false);
     document.addEventListener("keyup", desactivaMovimiento, false);
 
