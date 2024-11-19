@@ -1,5 +1,21 @@
 window.onload = function() {
 
+    let protagonista = new Personaje();
+
+    let plataformas = [
+        new Plataforma(0, 960, 1024, 192),
+        new Plataforma(384, 832, 128, 128),
+        new Plataforma(640, 704, 256, 64),
+        new Plataforma(896, 192, 128, 768),
+        new Plataforma(0, 576, 512, 64),
+        new Plataforma(448, 512, 64, 64),
+        new Plataforma(0, 320, 448, 64),
+        new Plataforma(704, 256, 192, 64),
+        new Plataforma(1152, 256, 192, 64),
+        new Plataforma(1536, 320, 192, 64),
+        new Plataforma(1472, 896, 320, 64)
+    ]
+
     let imgPlataformasNivel1 = new Image;
     imgPlataformasNivel1.src = 'imagenes/plataformasLvl1.png';
 
@@ -9,7 +25,7 @@ window.onload = function() {
     let imgTituloNivel = new Image();
     imgTituloNivel.src = 'imagenes/cardShine005.png';
 
-    const topeDerecha = 1920-55;
+    const topeDerecha = 1920-protagonista.tamañoX;
     const topeIzquierda = 0;
 
     let fondo, ctxFondo, frente, ctxFrente;
@@ -18,12 +34,12 @@ window.onload = function() {
 
     function Personaje() {
         this.x = 120;
-        this.y = 895;
+        this.y = 896;
         this.velocidad = 1.5; 
         this.velocidadSalto = 3.5; 
         this.velocidadCaida = 0.4;
-        this.tamañoX = 55;
-        this.tamañoY = 55;
+        this.tamañoX = 64;
+        this.tamañoY = 64;
         this.yAntesDelSalto;
         this.haSaltado = false;
         this.haLLegadoArriba = false;
@@ -106,6 +122,7 @@ window.onload = function() {
             protagonista.y < this.y + this.tamañoY 
         ) {
             protagonista.x = this.x - protagonista.tamañoX;
+            
         } 
         
     }
@@ -118,6 +135,7 @@ window.onload = function() {
             protagonista.y < this.y + this.tamañoY 
         ) {
             protagonista.x = this.x + this.tamañoX;
+            
         } 
         
     }
@@ -143,19 +161,20 @@ window.onload = function() {
             }
         
     }
- 
-    Plataforma.prototype.personajeCayendo = function(posicionChoque) {
-            
-        if (colisionCompleta(protagonista, this)) {
-            protagonista.y = (this.y - protagonista.tamañoY) - protagonista.velocidadSalto - protagonista.velocidadCaida + -0.099 + posicionChoque;
-            protagonista.aterrizado = true;
-        } else {
-            protagonista.y += protagonista.velocidadCaida;
-                
-        }
+        Plataforma.prototype.personajeCayendo = function() {
+            // Verificamos si hay colisión con la plataforma
+            if (colisionCompleta(protagonista, this)) {
+                // Ajustamos exactamente la posición del personaje a la parte superior de la plataforma
+                protagonista.y = (this.y - protagonista.tamañoY);
+                protagonista.aterrizado = true;
+            } else if (protagonista.aterrizado === false) {
+                protagonista.y += protagonista.velocidadCaida;
+            }
         
-    }
-
+            // Limitar el valor de "y" para evitar acumulación de decimales
+            //protagonista.y = Math.round(protagonista.y * 100) / 100;
+        };
+    
 
     function moverPersonaje() {
 
@@ -183,42 +202,40 @@ window.onload = function() {
                 plataforma.colisionConPlataformaAlSaltar();
             });
         }
-        if (!saltar) {
-            plataformas.forEach((plataforma, indice) => {
-                
-                plataforma.personajeCayendo(indice*0.5);
+        /*if (!saltar) {
+            plataformas.forEach(plataforma => {     
+                plataforma.personajeCayendo();
             });
-        }
+        }*/
         
         ctxFrente.clearRect(0, 0, 1920, 1080);
         ctxFrente.fillStyle = "#da3737";
         ctxFrente.fillRect(protagonista.x, protagonista.y, protagonista.tamañoX, protagonista.tamañoY);
 
         
-        console.log(protagonista.y + protagonista.tamañoY)
+        //console.log(protagonista.y + protagonista.tamañoY)
     }
 
     function fondoNivel1() {
-        ctxFondo.drawImage(imgFondoNivel1, 0, 0, fondo.width, fondo.height); 
+        //ctxFondo.drawImage(imgFondoNivel1, 0, 0, fondo.width, fondo.height); 
         ctxFondo.fillStyle = "#683415";
         
 
-        /*plataformas.forEach(plataforma => {
+        plataformas.forEach(plataforma => {
             ctxFondo.fillRect(plataforma.x, plataforma.y, plataforma.tamañoX, plataforma.tamañoY); 
-        });*/
+        });
 
-        ctxFondo.drawImage(imgPlataformasNivel1, 0, 0, fondo.width, fondo.height); 
-        ctxFondo.drawImage(imgTituloNivel, 0, 0, 470, 150); 
+        //ctxFondo.drawImage(imgPlataformasNivel1, 0, 0, fondo.width, fondo.height); 
+        //ctxFondo.drawImage(imgTituloNivel, 0, 0, 470, 150); 
         
         ctxFondo.font = 'bold 100px arial';
         ctxFondo.fillStyle = 'white';
         ctxFondo.strokeStyle = 'black';     
         ctxFondo.lineWidth = 4;
 
-        ctxFondo.fillText('Tutorial', 50, 105);
-        ctxFondo.strokeText('Tutorial', 50, 105);
+        //ctxFondo.fillText('Tutorial', 50, 105);
+        //ctxFondo.strokeText('Tutorial', 50, 105);
         
-        console.log(protagonista.y - protagonista.tamañoY)
     }
 
     function activaMovimiento(evt) {
@@ -264,16 +281,16 @@ window.onload = function() {
         if(obj1.x < obj2.x + obj2.tamañoX && 
             obj1.x + obj1.tamañoX > obj2.x &&
             obj1.y < obj2.y + obj2.tamañoY &&
-            obj1.y + obj1.tamañoY > obj2.y 
+            obj1.y + obj1.tamañoY > obj2.y
         ) {
             colision = true;
+            
         }
-        
+
+        console.log("colision:"+colision)
         return colision;
 
     }
-
-    
 
     document.addEventListener("keydown", activaMovimiento, false);
     document.addEventListener("keyup", desactivaMovimiento, false);
@@ -284,25 +301,10 @@ window.onload = function() {
     ctxFondo = fondo.getContext("2d");
     ctxFrente = frente.getContext("2d");
 
-    let protagonista = new Personaje();
-    let plataformas = [
-        new Plataforma(0, 960, 1024, 192),
-        new Plataforma(384, 832, 128, 128),
-        new Plataforma(640, 704, 256, 64),
-        new Plataforma(896, 192, 128, 768),
-        new Plataforma(0, 576, 512, 64),
-        new Plataforma(448, 512, 64, 64),
-        new Plataforma(0, 320, 448, 64),
-        new Plataforma(704, 256, 192, 64),
-        new Plataforma(1152, 256, 192, 64),
-        new Plataforma(1536, 320, 192, 64),
-        new Plataforma(1472, 896, 320, 64)
-    ]
     imgFondoNivel1.onload = function () {
         fondoNivel1();
     };
     
-
     idPersonaje = setInterval(moverPersonaje,1);
     
 }
