@@ -36,9 +36,9 @@ window.onload = function() {
     function Personaje() {
         this.x = 120;
         this.y = 896;
-        this.velocidad = 1.5; 
-        this.velocidadSalto = 3.25; 
-        this.velocidadCaida = 3.25;
+        this.velocidad = 6; 
+        this.velocidadSalto = 13; 
+        this.velocidadCaida = 13;
         this.tamañoX = 64;
         this.tamañoY = 64;
         this.yAntesDelSalto;
@@ -69,11 +69,11 @@ window.onload = function() {
     }
 
     Personaje.prototype.personajeCorriendo = function() {
-        this.velocidad = 3; 
+        this.velocidad = 13; 
     }
 
     Personaje.prototype.personajeAndando = function() {
-        this.velocidad = 1.5; 
+        this.velocidad = 6; 
     }
 
     Personaje.prototype.personajeSaltando = function() {
@@ -102,7 +102,9 @@ window.onload = function() {
                 saltar = false;
                 this.haSaltado = false;
                 this.haLLegadoArriba = false;
-                this.velocidadCaida = 0.4
+                this.saltarEnAire = true
+                
+                
             }
         }
         
@@ -153,7 +155,6 @@ window.onload = function() {
                 protagonista.haLLegadoArriba = false;
                 protagonista.aterrizado = true;
                 protagonista.saltarEnAire = true;
-                protagonista.velocidadCaida = 3.5
             }
 
             protagonista.haLLegadoArriba = true;
@@ -185,6 +186,10 @@ window.onload = function() {
     
 
     function moverPersonaje() {
+        if(protagonista.y - protagonista.tamañoY > 1080) {
+            protagonista.x= 120;
+            protagonista.y=896
+        }
 
         if (xDerecha) {
             protagonista.generaPosicionDerecha();
@@ -326,7 +331,7 @@ window.onload = function() {
         fondoNivel1();
     };
     
-    idPersonaje = setInterval(moverPersonaje,1);
+    idPersonaje = setInterval(moverPersonaje,16);
     
 }
 
