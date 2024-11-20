@@ -102,8 +102,6 @@ window.onload = function() {
                 saltar = false;
                 this.haSaltado = false;
                 this.haLLegadoArriba = false;
-                this.saltarEnAire = true
-                
                 
             }
         }
