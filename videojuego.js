@@ -102,7 +102,7 @@ window.onload = function() {
                 saltar = false;
                 this.haSaltado = false;
                 this.haLLegadoArriba = false;
-                
+                this.velocidadCaida = 0.4
             }
         }
         
@@ -153,6 +153,7 @@ window.onload = function() {
                 protagonista.haLLegadoArriba = false;
                 protagonista.aterrizado = true;
                 protagonista.saltarEnAire = true;
+                protagonista.velocidadCaida = 3.5
             }
 
             protagonista.haLLegadoArriba = true;
