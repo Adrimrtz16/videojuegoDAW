@@ -1,5 +1,6 @@
-window.onload = function() {
 
+
+window.onload = function() {
     let protagonista = new Personaje();
 
     let plataformas = [
@@ -12,9 +13,10 @@ window.onload = function() {
         new Plataforma(448, 512, 64, 64),
         new Plataforma(0, 320, 448, 64),
         new Plataforma(704, 256, 192, 64),
-        new Plataforma(1152, 256, 192, 64),
-        new Plataforma(1536, 320, 192, 64),
+        new Plataforma(1152, 256, 240, 64),
+        new Plataforma(1536, 320, 240, 64),
         new Plataforma(1472, 896, 320, 64)
+        
     ]
 
     let imgPlataformasNivel1 = new Image;
@@ -28,10 +30,9 @@ window.onload = function() {
 
     const topeDerecha = 1920-protagonista.tamañoX;
     const topeIzquierda = 0;
-
+    
     let fondo, ctxFondo, frente, ctxFrente;
     let xDerecha, xIzquierda, correr, saltar;
-    let posicionChoque;
 
     function Personaje() {
         this.x = 120;
@@ -102,7 +103,7 @@ window.onload = function() {
                 saltar = false;
                 this.haSaltado = false;
                 this.haLLegadoArriba = false;
-                
+                this.velocidadCaida = 1
             }
         }
         
@@ -142,51 +143,49 @@ window.onload = function() {
     }
 
     Plataforma.prototype.colisionConPlataformaAlSaltar = function () {
+        
         if(colisionCompleta(protagonista,this)){
             if(protagonista.x + protagonista.tamañoX === this.x){
                 protagonista.x = this.x - protagonista.tamañoX;
                 
-            } else if (protagonista.haLLegadoArriba){
+            } else if (protagonista.haLLegadoArriba) {
                 protagonista.y = this.y - protagonista.tamañoY + 1;
                 saltar = false;
                 protagonista.haSaltado = false;
-                protagonista.haLLegadoArriba = false;
-                protagonista.aterrizado = true;
                 protagonista.saltarEnAire = true;
             }
-
             protagonista.haLLegadoArriba = true;
-                
-            }
+            
+        } else {
+            protagonista.aterrizado = false;
+        }
         
     }
 
     Plataforma.prototype.personajeCayendo = function() {
-        
+
         // Verificamos si hay colisión con la plataforma
         if (colisionCompleta(protagonista, this)) {
             // Ajustamos exactamente la posición del personaje a la parte superior de la plataforma
             protagonista.y = (this.y - protagonista.tamañoY);
             protagonista.aterrizado = true;
+            protagonista.saltarEnAire = true;
+            protagonista.velocidadCaida = 13
         } else if (protagonista.aterrizado === false) {
-
             protagonista.y += protagonista.velocidadCaida;
-
             if(protagonista.saltarEnAire === true) {
                 protagonista.aterrizado = true;
             }
             
-        }
+        } 
 
-        
-        
     }
     
 
     function moverPersonaje() {
         if(protagonista.y - protagonista.tamañoY > 1080) {
-            protagonista.x= 120;
-            protagonista.y=896
+            protagonista.x = 120;
+            protagonista.y = 896
         }
 
         if (xDerecha) {
@@ -223,8 +222,6 @@ window.onload = function() {
         ctxFrente.clearRect(0, 0, 1920, 1080);
         ctxFrente.fillStyle = "#da3737";
         ctxFrente.fillRect(protagonista.x, protagonista.y, protagonista.tamañoX, protagonista.tamañoY);
-        
-        //console.log(protagonista.y + protagonista.tamañoY)
     }
 
     function fondoNivel1() {
@@ -237,15 +234,21 @@ window.onload = function() {
         });*/
 
         ctxFondo.drawImage(imgPlataformasNivel1, 0, 0, fondo.width, fondo.height); 
-        ctxFondo.drawImage(imgTituloNivel, 0, 0, 470, 150); 
+
+        gifler('imagenes/shovelHoguera.gif').get(function(anim) {
+            anim.canvas = fondo; // vincula el canvas
+            anim.animate(); // comienza la animación
+          }); 
+        
+        //ctxFondo.drawImage(imgTituloNivel, 0, 0, 470, 150); 
         
         ctxFondo.font = 'bold 100px arial';
         ctxFondo.fillStyle = 'white';
         ctxFondo.strokeStyle = 'black';     
         ctxFondo.lineWidth = 4;
 
-        ctxFondo.fillText('Tutorial', 50, 105);
-        ctxFondo.strokeText('Tutorial', 50, 105);
+        //ctxFondo.fillText('Tutorial', 50, 105);
+        //ctxFondo.strokeText('Tutorial', 50, 105);
         
     }
 
@@ -263,7 +266,8 @@ window.onload = function() {
                 break;
             case 32:
                 if(protagonista.aterrizado){
-                    saltar = true;
+                    protagonista.velocidadCaida = 13
+                    saltar = true;                 
                 }
                 break;
         }
@@ -292,22 +296,6 @@ window.onload = function() {
         if(obj1.x < obj2.x + obj2.tamañoX && 
             obj1.x + obj1.tamañoX > obj2.x &&
             obj1.y < obj2.y + obj2.tamañoY &&
-            obj1.y + obj1.tamañoY > obj2.y
-        ) {
-            colision = true;
-        }
-
-        return colision;
-
-    }
-
-    function colisionArriba(obj1, obj2) {
-
-        let colision = false
-
-        if(obj1.x < obj2.x + obj2.tamañoX && 
-            obj1.x + obj1.tamañoX > obj2.x &&
-            obj1.y < obj2.y + obj2.tamañoY &&
             obj1.y + obj1.tamañoY > obj2.y 
         ) {
             colision = true;
@@ -316,6 +304,7 @@ window.onload = function() {
         return colision;
 
     }
+
     document.addEventListener("keydown", activaMovimiento, false);
     document.addEventListener("keyup", desactivaMovimiento, false);
 
@@ -329,8 +318,7 @@ window.onload = function() {
         fondoNivel1();
     };
     
-    idPersonaje = setInterval(moverPersonaje,16);
-    
+    idPersonaje = setInterval(moverPersonaje,16);  
 }
 
 
