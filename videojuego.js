@@ -19,6 +19,9 @@ let imgHogueraShovel = new Image();
 imgHogueraShovel.src = 'imagenes/torches.png';
 Hoguera.prototype.imagen = imgHogueraShovel;
 
+let imgShovelKnight = new Image();
+imgShovelKnight.src = 'imagenes/Roy_Shovel_Knights_Stalwart_Plate.webp'
+
 let imgPlataformasNivel1 = new Image();
 imgPlataformasNivel1.src = 'imagenes/plataformasLvl1.png';
 
@@ -37,10 +40,10 @@ let xDerecha, xIzquierda, correr, saltar;
 let posicion = 0;
 
 function Hoguera() {
-    this.x =0;
-    this.y = 450;
-    this.tamañoX = 62;
-    this.tamañoY = 132;
+    this.x = 165;
+    this.y = 385;
+    this.tamañoX = 56;
+    this.tamañoY = 126;
     this.animacionSprite = [[5,5],[67,5],[129,5]];
 }
 
@@ -84,23 +87,22 @@ function moverPersonaje() {
     }
     
     ctxFrente.clearRect(0, 0, 1920, 1080);
-    ctxFondo.drawImage(hoguera.imagen, // Imagen completa con todos los comecocos (Sprite)
+    ctxFrente.drawImage(hoguera.imagen, // Imagen completa con todos los comecocos (Sprite)
                         hoguera.animacionSprite[posicion][0],    // Posicion X del sprite donde se encuentra el comecocos que voy a recortar del sprite para dibujar
                         hoguera.animacionSprite[posicion][1],	  // Posicion Y del sprite donde se encuentra el comecocos que voy a recortar del sprite para dibujar
                         hoguera.tamañoX, 		    // Tamaño X del comecocos que voy a recortar para dibujar
                         hoguera.tamañoY,	        // Tamaño Y del comecocos que voy a recortar para dibujar
                         hoguera.x,                // Posicion x de pantalla donde voy a dibujar el comecocos recortado
                         hoguera.y,				            // Posicion y de pantalla donde voy a dibujar el comecocos recortado
-                        124,		    // Tamaño X del comecocos que voy a dibujar
-                        244
-                        )
+                        90,		    // Tamaño X del comecocos que voy a dibujar
+                        192.62);      // Tamaño Y del comecocos que voy a dibujar
     ctxFrente.fillStyle = "#da3737";
     ctxFrente.fillRect(protagonista.x, protagonista.y, protagonista.tamañoX, protagonista.tamañoY);
 }
 
 function fuegoHoguera() {
 
-    posicion = (posicion + 1) % 2;  // Cargará posiciones 0 y 1 del array
+    posicion = (posicion + 1) % 3;  // Cargará posiciones 0 y 1 del array
 
 }
 
@@ -114,7 +116,7 @@ function fondoNivel1() {
     });*/
 
     ctxFondo.drawImage(imgPlataformasNivel1, 0, 0, fondo.width, fondo.height); 
-
+    ctxFondo.drawImage(imgShovelKnight, 35, 445); 
     //ctxFondo.drawImage(imgTituloNivel, 0, 0, 470, 150); 
     
     ctxFondo.font = 'bold 100px arial';
@@ -195,7 +197,7 @@ imgFondoNivel1.onload = function () {
 
 idPersonaje = setInterval(moverPersonaje,16);  
 
-let idHoguera = setInterval(fuegoHoguera,1000)
+let idHoguera = setInterval(fuegoHoguera,500)
 
 
 
