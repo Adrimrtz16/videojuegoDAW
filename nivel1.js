@@ -1,5 +1,6 @@
 let posicionHoguera = 0;
 let posicionTextoShovel = 0;
+let subir = false
 function Hoguera() {
     this.x = 165;
     this.y = 385;
@@ -43,13 +44,13 @@ let plataformasNivel1 = [
 ]
 
 let mensajeShovelKnight = new Area(0,385,320,192);
-
+let areaColeccinable1 = new Area(1203,340,95,94);
 function TextoShovel() {
     this.x = 75;
     this.y = 300;
     this.tamañoX = 256;
     this.tamañoY = 191;
-    this.imagen = imgTextoShovel;
+    this.imagen;
     this.animacionSprite = [[0,0],[256,0],[512,0],[768,0],[1024,0],[1280,0],
                             [0,191],[256,191],[512,191],[768,191],[1024,191],[1280,191],
                             [0,383],[256,383],[512,383],[768,383],[1024,383],[1280,383]];
@@ -70,10 +71,24 @@ TextoShovel.prototype.pintarTextoShovel = function() {
 function letrasTexto() {
 
     posicionTextoShovel = (posicionTextoShovel + 1) % 18;  // Cargará posiciones 0 y 1 del array
-    console.log("entra")
+
 }
 
-let totalImages = 7; // Número total de imágenes
+function coleccionableOscilando() {
+    if(!subir) {
+        posicionY++;
+        if(posicionY === 20){
+            subir = true;
+        }
+    }else if(subir){
+        posicionY--;
+        if(posicionY === 0){
+            subir = false;
+        }
+    }
+}
+
+let totalImages = 8; // Número total de imágenes
 let loadedImages = 0;
 
 let imgHogueraShovel = new Image();
@@ -103,6 +118,10 @@ imgCuevaPorDentro.onload = checkAllImagesLoaded;
 let imgTextoShovel = new Image();
 imgTextoShovel.src = 'imagenes/texto shovel.png';
 imgTextoShovel.onload = checkAllImagesLoaded;
+
+let imgColeccionable1 = new Image();
+imgColeccionable1.src = 'imagenes/coleccionable1.png';
+imgColeccionable1.onload = checkAllImagesLoaded;
 
 function checkAllImagesLoaded() {
     loadedImages++;

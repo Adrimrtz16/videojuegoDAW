@@ -9,13 +9,17 @@ let fondo, ctxFondo, frente, ctxFrente;
 let xDerecha, xIzquierda, correr, saltar;
 
 let mostrandoTexto = false;
-let idIntervaloTextoShovel
+let idIntervaloTextoShovel,intervaloColeccinable1;
+let posicionY = 0;
 let plataformas;
+
+let coleccionable1Cogido = false
 
 function moverPersonaje() {
     if(protagonista.y - protagonista.tamañoY > 1080) {
         protagonista.x = 120;
-        protagonista.y = 896
+        protagonista.y = 896;
+        coleccionable1Cogido = false;
     }
 
     if (xDerecha) {
@@ -54,7 +58,6 @@ function moverPersonaje() {
     elemntoAnimado.pintarHoguera();
 
     if(colisionCompleta(protagonista,mensajeShovelKnight) && mostrandoTexto === false) {
-        console.log("entra")
         idIntervaloTextoShovel = setInterval(letrasTexto,100)
         mostrandoTexto = true;
     }
@@ -64,11 +67,20 @@ function moverPersonaje() {
         if(posicionTextoShovel === 17) {
             clearInterval(idIntervaloTextoShovel)
         }
-    } else if (!colisionCompleta(protagonista,mensajeShovelKnight)){
+    } else if (!colisionCompleta(protagonista,mensajeShovelKnight) && mostrandoTexto === true){
         mostrandoTexto = false;
         clearInterval(idIntervaloTextoShovel);
     }
 
+    if (!coleccionable1Cogido) {
+        if (!intervaloColeccinable1) { // Solo crea el intervalo si no existe uno activo
+            intervaloColeccinable1 = setInterval(coleccionableOscilando, 50);
+        }
+        ctxFrente.drawImage(imgColeccionable1, 0, posicionY, fondo.width, fondo.height);
+        if(colisionCompleta(protagonista,areaColeccinable1)){
+            coleccionable1Cogido = true
+        }
+    } 
     ctxFrente.fillStyle = "#da3737";
     ctxFrente.fillRect(protagonista.x, protagonista.y, protagonista.tamañoX, protagonista.tamañoY);
 }
@@ -122,6 +134,7 @@ ctxFrente = frente.getContext("2d");
 function iniciarJuego() {
     
     plataformas = plataformasNivel1;
+    textoShovelKnight.imagen = imgTextoShovel;
 
     fondoNivel1();
 
