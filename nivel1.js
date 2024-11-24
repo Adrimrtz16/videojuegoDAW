@@ -1,6 +1,9 @@
 let posicionHoguera = 0;
-let posicionTextoShovel = 0;
+let posicionTextoMision1 = 0;
+let posicionGraciasShovel = 0
+
 let subir = false
+
 function Hoguera() {
     this.x = 165;
     this.y = 385;
@@ -45,7 +48,8 @@ let plataformasNivel1 = [
 
 let mensajeShovelKnight = new Area(0,385,320,192);
 let areaColeccinable1 = new Area(1203,340,95,94);
-function TextoShovel() {
+
+function BocadilloComic(numeroDeSprites) {
     this.x = 75;
     this.y = 300;
     this.tamañoX = 256;
@@ -54,24 +58,27 @@ function TextoShovel() {
     this.animacionSprite = [[0,0],[256,0],[512,0],[768,0],[1024,0],[1280,0],
                             [0,191],[256,191],[512,191],[768,191],[1024,191],[1280,191],
                             [0,383],[256,383],[512,383],[768,383],[1024,383],[1280,383]];
+                            
+    this.cambioDePosicion = 0;
+    this.numeroDeSprites = numeroDeSprites;
 }
 
-TextoShovel.prototype.pintarTextoShovel = function() {
+BocadilloComic.prototype.pintarTextoShovel = function() {
     ctxFrente.drawImage(this.imagen, // Imagen completa con todos los comecocos (Sprite)
-                        this.animacionSprite[posicionTextoShovel][0],    // Posicion X del sprite donde se encuentra el comecocos que voy a recortar del sprite para dibujar
-                        this.animacionSprite[posicionTextoShovel][1],	  // Posicion Y del sprite donde se encuentra el comecocos que voy a recortar del sprite para dibujar
+                        this.animacionSprite[this.cambioDePosicion][0],    // Posicion X del sprite donde se encuentra el comecocos que voy a recortar del sprite para dibujar
+                        this.animacionSprite[this.cambioDePosicion][1],	  // Posicion Y del sprite donde se encuentra el comecocos que voy a recortar del sprite para dibujar
                         this.tamañoX, 		    // Tamaño X del comecocos que voy a recortar para dibujar
                         this.tamañoY,	        // Tamaño Y del comecocos que voy a recortar para dibujar
                         this.x,                // Posicion x de pantalla donde voy a dibujar el comecocos recortado
                         this.y,				            // Posicion y de pantalla donde voy a dibujar el comecocos recortado
                         this.tamañoX,		    // Tamaño X del comecocos que voy a dibujar
                         this.tamañoY);      // Tamaño Y del comecocos que voy a dibujar
+
+       
 }
 
-function letrasTexto() {
-
-    posicionTextoShovel = (posicionTextoShovel + 1) % 18;  // Cargará posiciones 0 y 1 del array
-
+BocadilloComic.prototype.letrasTextoMision = function () {
+    this.cambioDePosicion = (this.cambioDePosicion + 1) % this.numeroDeSprites;  // Cargará posiciones 0 y 1 del array
 }
 
 function coleccionableOscilando() {
@@ -88,7 +95,7 @@ function coleccionableOscilando() {
     }
 }
 
-let totalImages = 8; // Número total de imágenes
+let totalImages = 11; // Número total de imágenes
 let loadedImages = 0;
 
 let imgHogueraShovel = new Image();
@@ -123,6 +130,18 @@ let imgColeccionable1 = new Image();
 imgColeccionable1.src = 'imagenes/coleccionable1.png';
 imgColeccionable1.onload = checkAllImagesLoaded;
 
+let imgMision = new Image();
+imgMision.src = 'imagenes/mision.png';
+imgMision.onload = checkAllImagesLoaded;
+
+let imgGraciasShovel = new Image();
+imgGraciasShovel.src = 'imagenes/texto shovel gracias.png';
+imgGraciasShovel.onload = checkAllImagesLoaded;
+
+let imgFinalNivel1 = new Image();
+imgFinalNivel1.src = 'imagenes/finalNivel1.png';
+imgFinalNivel1.onload = checkAllImagesLoaded;
+
 function checkAllImagesLoaded() {
     loadedImages++;
     if (loadedImages === totalImages) {
@@ -138,7 +157,8 @@ function fondoNivel1() {
     /*plataformas.forEach(plataforma => {
         ctxFondo.fillRect(plataforma.x, plataforma.y, plataforma.tamañoX, plataforma.tamañoY); 
     });*/
-
+    
+    ctxFondo.drawImage(imgFinalNivel1, 0, 0, fondo.width, fondo.height);
     ctxFondo.drawImage(imgPlataformasNivel1, 0, 0, fondo.width, fondo.height); 
     ctxFondo.drawImage(imgCuevaPorDentro, 0, 0, fondo.width, fondo.height); 
     ctxFondo.drawImage(imgShovelKnight, 35, 445); 
