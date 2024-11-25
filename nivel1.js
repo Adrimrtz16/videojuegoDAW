@@ -25,12 +25,6 @@ Hoguera.prototype.pintarHoguera = function() {
                         192.62);      // Tamaño Y del comecocos que voy a dibujar
 }
 
-function fuegoHoguera() {
-
-    posicionHoguera = (posicionHoguera + 1) % 3;  // Cargará posiciones 0 y 1 del array
-
-}
-
 let plataformasNivel1 = [
     new Plataforma(0, 0, 0, 0),
     new Plataforma(0, 960, 1024, 192),
@@ -79,6 +73,12 @@ BocadilloComic.prototype.pintarTextoShovel = function() {
 
 BocadilloComic.prototype.letrasTextoMision = function () {
     this.cambioDePosicion = (this.cambioDePosicion + 1) % this.numeroDeSprites;  // Cargará posiciones 0 y 1 del array
+}
+
+function fuegoHoguera() {
+
+    posicionHoguera = (posicionHoguera + 1) % 3;  // Cargará posiciones 0 y 1 del array
+
 }
 
 function coleccionableOscilando() {

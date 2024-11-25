@@ -20,6 +20,7 @@ let recompensaReclamada = false;
 let mostrandoTexto = false;
 let textoDeGraciasShovel = true
 let graciasDadasShovel = false;
+let iniciarMision = false;
 
 function moverPersonaje() {
     if(protagonista.y - protagonista.tamañoY > 1080) {
@@ -28,6 +29,7 @@ function moverPersonaje() {
         coleccionable1Cogido = false;
         misionNivel1 = false;
         recompensaReclamada = false;
+        iniciarMision = false;
     }
 
     if (xDerecha) {
@@ -72,10 +74,14 @@ function moverPersonaje() {
             misionNivel1 = false;
         }
     }
-    
+    if(!iniciarMision) {
+        ctxFrente.drawImage(imgMision, 0, 0, fondo.width, fondo.height);
+    }
+
     if(colisionCompleta(protagonista,mensajeShovelKnight) && !mostrandoTexto && !recompensaReclamada) {
         idIntervaloTextoShovel = setInterval(() => textoShovelKnightMision.letrasTextoMision(), 100)
         mostrandoTexto = true;
+        iniciarMision = true;
     }
 
     if(colisionCompleta(protagonista,mensajeShovelKnight) && !recompensaReclamada) {
@@ -97,10 +103,9 @@ function moverPersonaje() {
             coleccionable1Cogido = true;
             misionNivel1 = true;
             mostrandoTexto = false;
+            iniciarMision = true;
         }
     }
-
-    
 
     if(recompensaReclamada) {
         if(colisionCompleta(protagonista,mensajeShovelKnight)) {
