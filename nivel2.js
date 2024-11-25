@@ -14,6 +14,7 @@ let plataformasNivel2 = [
 ]
 
 function fondoNivel2(){
+    ctxFondo.drawImage(imgFondoNivel2, 0, 0, fondo.width, fondo.height);
     plataformasNivel2.forEach(plataforma => {
         ctxFondo.fillRect(plataforma.x, plataforma.y, plataforma.tamañoX, plataforma.tamañoY); 
     });

@@ -96,7 +96,7 @@ function coleccionableOscilando() {
     }
 }
 
-let totalImages = 12; // Número total de imágenes
+let totalImages = 13; // Número total de imágenes
 let loadedImages = 0;
 
 let imgHogueraShovel = new Image();
@@ -146,6 +146,10 @@ imgFinalNivel1.onload = checkAllImagesLoaded;
 let imgSpriteProta = new Image();
 imgSpriteProta.src = 'imagenes/sprite prota.png';
 imgSpriteProta.onload = checkAllImagesLoaded;
+
+let imgFondoNivel2 = new Image();
+imgFondoNivel2.src = 'imagenes/01.png';
+imgFondoNivel2.onload = checkAllImagesLoaded;
 
 function checkAllImagesLoaded() {
     loadedImages++;
