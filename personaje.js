@@ -1,20 +1,38 @@
+let posicionProtagonista = 0;
+
 function Personaje() {
     this.x = 120;
     this.y = 896;
     this.velocidad = 6; 
     this.velocidadSalto = 13; 
     this.velocidadCaida = 13;
-    this.tamañoX = 64;
-    this.tamañoY = 64;
+    this.tamañoX = 60;
+    this.tamañoY = 60;
     this.yAntesDelSalto;
     this.haSaltado = false;
     this.haLLegadoArriba = false;
     this.aterrizado = true;
     this.saltarEnAire = true;
+    this.imagen = imgSpriteProta
+    this.posicionSprite = [[64,64],[0,64]]
+    this.estadoDeLaAnimacion = 1
+}
+
+Personaje.prototype.pintarPersonaje = function() {
+    ctxFrente.drawImage(this.imagen, 
+                  this.posicionSprite[posicionProtagonista][0], 
+                  this.posicionSprite[posicionProtagonista][1], 
+                  64, 
+                  64, 
+                  this.x, 
+                  this.y, 
+                  this.tamañoX, 
+                  this.tamañoY);
 }
 
 Personaje.prototype.generaPosicionDerecha = function() {
-
+    this.posicionSprite = [[64,64],[0,64]];
+    this.estadoDeLaAnimacion = 2;
     this.x += this.velocidad;
     
     if (this.x > topeDerecha) {
@@ -24,7 +42,8 @@ Personaje.prototype.generaPosicionDerecha = function() {
 }
 
 Personaje.prototype.generaPosicionIzquierda = function() {
-
+    this.posicionSprite = [[0,0],[64,0]];
+    this.estadoDeLaAnimacion = 2;
     this.x -= this.velocidad;
     
     if (this.x < topeIzquierda) {
@@ -71,4 +90,8 @@ Personaje.prototype.personajeSaltando = function() {
         }
     }
     
+}
+
+function posicionDelProtagonista() {
+    posicionProtagonista = (posicionProtagonista + 1) % protagonista.estadoDeLaAnimacion;
 }

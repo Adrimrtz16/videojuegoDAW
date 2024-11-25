@@ -42,6 +42,7 @@ let plataformasNivel1 = [
 
 let mensajeShovelKnight = new Area(0,385,320,192);
 let areaColeccinable1 = new Area(1203,340,95,94);
+let areaFinalNivel1 = new Area(1472, 704, 320, 192);
 
 function BocadilloComic(numeroDeSprites) {
     this.x = 75;
@@ -95,7 +96,7 @@ function coleccionableOscilando() {
     }
 }
 
-let totalImages = 11; // Número total de imágenes
+let totalImages = 12; // Número total de imágenes
 let loadedImages = 0;
 
 let imgHogueraShovel = new Image();
@@ -142,10 +143,14 @@ let imgFinalNivel1 = new Image();
 imgFinalNivel1.src = 'imagenes/finalNivel1.png';
 imgFinalNivel1.onload = checkAllImagesLoaded;
 
+let imgSpriteProta = new Image();
+imgSpriteProta.src = 'imagenes/sprite prota.png';
+imgSpriteProta.onload = checkAllImagesLoaded;
+
 function checkAllImagesLoaded() {
     loadedImages++;
     if (loadedImages === totalImages) {
-        iniciarJuego(); 
+        iniciarNivel1(); 
     }
 }
 
