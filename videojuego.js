@@ -217,8 +217,11 @@ function iniciarNivel1() {
 
 function iniciarNivel2() {
     fondoNivel2();
+    plataformas = plataformasNivel2;
     idPersonaje = setInterval(moverPersonaje,16);  
     idSprite = setInterval(posicionDelProtagonista, 200);
+    protagonista.x = 120;
+    protagonista.y = 896;
 }
 
 
