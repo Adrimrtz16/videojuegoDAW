@@ -40,7 +40,7 @@ let plataformasNivel1 = [
     new Plataforma(1472, 896, 320, 64) 
 ]
 
-let mensajeShovelKnight = new Area(0,385,320,192);
+let mensajeShovelKnight = new Area(0,385,384,192);
 let areaColeccinable1 = new Area(1203,340,95,94);
 let areaFinalNivel1 = new Area(1472, 704, 320, 192);
 
@@ -96,7 +96,7 @@ function coleccionableOscilando() {
     }
 }
 
-let totalImages = 13; // Número total de imágenes
+let totalImages = 14; // Número total de imágenes
 let loadedImages = 0;
 
 let imgHogueraShovel = new Image();
@@ -151,6 +151,10 @@ let imgFondoNivel2 = new Image();
 imgFondoNivel2.src = 'imagenes/01.png';
 imgFondoNivel2.onload = checkAllImagesLoaded;
 
+let imgPlataformasNivel2 = new Image();
+imgPlataformasNivel2.src = 'imagenes/plataformasLvl2.png';
+imgPlataformasNivel2.onload = checkAllImagesLoaded;
+
 function checkAllImagesLoaded() {
     loadedImages++;
     if (loadedImages === totalImages) {
@@ -159,8 +163,8 @@ function checkAllImagesLoaded() {
 }
 
 function fondoNivel1() {
-    ctxFondo.drawImage(imgFondoNivel1, 0, 0, fondo.width, fondo.height); 
-    ctxFondo.fillStyle = "#000000";
+    ctxFondo.drawImage(imgFondoNivel1, 0, 0, fondo.width+35, fondo.height+35); 
+    ctxFondo.fillStyle = "#ffffff";
     
 
     // plataformasNivel2.forEach(plataforma => {
