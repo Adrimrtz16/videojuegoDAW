@@ -210,18 +210,16 @@ function iniciarNivel1() {
     fondoNivel1();
 
     idPersonaje = setInterval(moverPersonaje,16);  
-    idSprite = setInterval(posicionDelProtagonista, 200);
+    idSprite = setInterval(posicionDelProtagonista, 150);
     idElementoAnimado = setInterval(fuegoHoguera,450)
 
 }
 
 function iniciarNivel2() {
-    fondoNivel2();
-    plataformas = plataformasNivel2;
-    idPersonaje = setInterval(moverPersonaje,16);  
-    idSprite = setInterval(posicionDelProtagonista, 200);
     protagonista.x = 120;
     protagonista.y = 896;
+    plataformas = plataformasNivel2;
+    fondoNivel2(); 
 }
 
 

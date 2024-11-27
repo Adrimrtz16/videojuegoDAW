@@ -160,12 +160,12 @@ function checkAllImagesLoaded() {
 
 function fondoNivel1() {
     ctxFondo.drawImage(imgFondoNivel1, 0, 0, fondo.width, fondo.height); 
-    ctxFondo.fillStyle = "#683415";
+    ctxFondo.fillStyle = "#000000";
     
 
-    /*plataformas.forEach(plataforma => {
-        ctxFondo.fillRect(plataforma.x, plataforma.y, plataforma.tamañoX, plataforma.tamañoY); 
-    });*/
+    // plataformasNivel2.forEach(plataforma => {
+    //     ctxFondo.fillRect(plataforma.x, plataforma.y, plataforma.tamañoX, plataforma.tamañoY); 
+    // });
     
     ctxFondo.drawImage(imgFinalNivel1, 0, 0, fondo.width, fondo.height);
     ctxFondo.drawImage(imgPlataformasNivel1, 0, 0, fondo.width, fondo.height); 
