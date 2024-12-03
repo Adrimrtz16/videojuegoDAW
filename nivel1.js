@@ -4,6 +4,34 @@ let posicionGraciasShovel = 0
 
 let subir = false
 
+let idIntervaloTextoShovel,intervaloColeccinable1;
+let coleccionable1Cogido = false
+let misionNivel1 = false;
+let recompensaReclamada1 = false;
+let mostrandoTexto = false;
+let textoDeGraciasShovel = true
+let graciasDadasShovel = false;
+let iniciarMision1 = false;
+
+let plataformasNivel1 = [
+    new Plataforma(0, 0, 0, 0),
+    new Plataforma(0, 960, 1024, 192),
+    new Plataforma(384, 832, 128, 128),
+    new Plataforma(640, 704, 256, 64),
+    new Plataforma(896, 192, 128, 768),
+    new Plataforma(0, 576, 512, 64),
+    new Plataforma(448, 512, 64, 64),
+    new Plataforma(0, 320, 448, 64),
+    new Plataforma(704, 256, 192, 64),
+    new Plataforma(1152, 256, 192, 64),
+    new Plataforma(1536, 320, 192, 64),
+    new Plataforma(1472, 896, 320, 64) 
+];
+
+let areaMensajeShovelKnight = new Plataforma(0,385,384,192);
+let areaColeccinable1 = new Plataforma(1203,340,95,94);
+let areaFinalNivel1 = new Plataforma(1472, 704, 320, 192);
+
 function Hoguera() {
     this.x = 165;
     this.y = 385;
@@ -24,25 +52,6 @@ Hoguera.prototype.pintarHoguera = function() {
                         90,		    // Tamaño X del comecocos que voy a dibujar
                         192.62);      // Tamaño Y del comecocos que voy a dibujar
 }
-
-let plataformasNivel1 = [
-    new Plataforma(0, 0, 0, 0),
-    new Plataforma(0, 960, 1024, 192),
-    new Plataforma(384, 832, 128, 128),
-    new Plataforma(640, 704, 256, 64),
-    new Plataforma(896, 192, 128, 768),
-    new Plataforma(0, 576, 512, 64),
-    new Plataforma(448, 512, 64, 64),
-    new Plataforma(0, 320, 448, 64),
-    new Plataforma(704, 256, 192, 64),
-    new Plataforma(1152, 256, 192, 64),
-    new Plataforma(1536, 320, 192, 64),
-    new Plataforma(1472, 896, 320, 64) 
-]
-
-let mensajeShovelKnight = new Area(0,385,384,192);
-let areaColeccinable1 = new Area(1203,340,95,94);
-let areaFinalNivel1 = new Area(1472, 704, 320, 192);
 
 function BocadilloComic(numeroDeSprites) {
     this.x = 75;
@@ -96,72 +105,6 @@ function coleccionableOscilando() {
     }
 }
 
-let totalImages = 14; // Número total de imágenes
-let loadedImages = 0;
-
-let imgHogueraShovel = new Image();
-imgHogueraShovel.src = 'imagenes/torches.png';
-imgHogueraShovel.onload = checkAllImagesLoaded;
-
-let imgShovelKnight = new Image();
-imgShovelKnight.src = 'imagenes/Roy_Shovel_Knights_Stalwart_Plate.webp';
-imgShovelKnight.onload = checkAllImagesLoaded;
-
-let imgPlataformasNivel1 = new Image();
-imgPlataformasNivel1.src = 'imagenes/plataformasLvl1.png';
-imgPlataformasNivel1.onload = checkAllImagesLoaded;
-
-let imgFondoNivel1 = new Image();
-imgFondoNivel1.src = 'imagenes/00.png';
-imgFondoNivel1.onload = checkAllImagesLoaded;
-
-let imgTituloNivel = new Image();
-imgTituloNivel.src = 'imagenes/cardShine005.png';
-imgTituloNivel.onload = checkAllImagesLoaded;
-
-let imgCuevaPorDentro = new Image();
-imgCuevaPorDentro.src = 'imagenes/cuevaPorDentro.png';
-imgCuevaPorDentro.onload = checkAllImagesLoaded;
-
-let imgTextoShovel = new Image();
-imgTextoShovel.src = 'imagenes/texto shovel.png';
-imgTextoShovel.onload = checkAllImagesLoaded;
-
-let imgColeccionable1 = new Image();
-imgColeccionable1.src = 'imagenes/coleccionable1.png';
-imgColeccionable1.onload = checkAllImagesLoaded;
-
-let imgMision = new Image();
-imgMision.src = 'imagenes/mision.png';
-imgMision.onload = checkAllImagesLoaded;
-
-let imgGraciasShovel = new Image();
-imgGraciasShovel.src = 'imagenes/texto shovel gracias.png';
-imgGraciasShovel.onload = checkAllImagesLoaded;
-
-let imgFinalNivel1 = new Image();
-imgFinalNivel1.src = 'imagenes/finalNivel1.png';
-imgFinalNivel1.onload = checkAllImagesLoaded;
-
-let imgSpriteProta = new Image();
-imgSpriteProta.src = 'imagenes/sprite prota.png';
-imgSpriteProta.onload = checkAllImagesLoaded;
-
-let imgFondoNivel2 = new Image();
-imgFondoNivel2.src = 'imagenes/01.png';
-imgFondoNivel2.onload = checkAllImagesLoaded;
-
-let imgPlataformasNivel2 = new Image();
-imgPlataformasNivel2.src = 'imagenes/plataformasLvl2.png';
-imgPlataformasNivel2.onload = checkAllImagesLoaded;
-
-function checkAllImagesLoaded() {
-    loadedImages++;
-    if (loadedImages === totalImages) {
-        iniciarNivel1(); 
-    }
-}
-
 function fondoNivel1() {
     ctxFondo.drawImage(imgFondoNivel1, 0, 0, fondo.width+35, fondo.height+35); 
     ctxFondo.fillStyle = "#ffffff";
@@ -176,4 +119,96 @@ function fondoNivel1() {
     ctxFondo.drawImage(imgCuevaPorDentro, 0, 0, fondo.width, fondo.height); 
     ctxFondo.drawImage(imgShovelKnight, 35, 445); 
     
+}
+
+function iniciarNivel1() {
+    
+    plataformas = plataformasNivel1;
+    textoShovelKnightMision.imagen = imgTextoShovel;
+    textoShovelKnightGracias.imagen = imgGraciasShovel;
+
+    fondoNivel1();
+
+    idPersonaje = setInterval(moverPersonaje,16);  
+    idSprite = setInterval(posicionDelProtagonista, 150);
+    idElementoAnimado = setInterval(fuegoHoguera,450)
+
+}
+
+function nivel1() {
+
+    if(protagonista.y - protagonista.tamañoY > 1080) {
+        protagonista.x = 120;
+        protagonista.y = 896;
+        coleccionable1Cogido = false;
+        misionNivel1 = false;
+        recompensaReclamada1 = false;
+        iniciarMision1 = false;
+    }
+
+    elemntoAnimado.pintarHoguera();
+
+    if(misionNivel1) {
+        ctxFrente.drawImage(imgMision, 0, 0, fondo.width, fondo.height);
+        if(colisionCompleta(areaMensajeShovelKnight, protagonista)) {
+            recompensaReclamada1 = true;
+            misionNivel1 = false;
+        }
+    }
+    if(!iniciarMision1) {
+        ctxFrente.drawImage(imgMision, 0, 0, fondo.width, fondo.height);
+    }
+
+    if(colisionCompleta(protagonista,areaMensajeShovelKnight) && !mostrandoTexto && !recompensaReclamada1) {
+        idIntervaloTextoShovel = setInterval(() => textoShovelKnightMision.letrasTextoMision(), 100)
+        mostrandoTexto = true;
+        iniciarMision1 = true;
+    }
+
+    if(colisionCompleta(protagonista,areaMensajeShovelKnight) && !recompensaReclamada1) {
+        textoShovelKnightMision.pintarTextoShovel();
+        if (textoShovelKnightMision.cambioDePosicion === 17) {
+            clearInterval(idIntervaloTextoShovel);
+        }
+    } else if (!colisionCompleta(protagonista,areaMensajeShovelKnight) && mostrandoTexto){
+        mostrandoTexto = false;
+        clearInterval(idIntervaloTextoShovel);
+    }
+
+    if (!coleccionable1Cogido) {
+        if (!intervaloColeccinable1) { // Solo crea el intervalo si no existe uno activo
+            intervaloColeccinable1 = setInterval(coleccionableOscilando, 50);
+        }
+        ctxFrente.drawImage(imgColeccionable1, 0, posicionY, fondo.width, fondo.height);
+        if(colisionCompleta(protagonista,areaColeccinable1)){
+            coleccionable1Cogido = true;
+            misionNivel1 = true;
+            mostrandoTexto = false;
+            iniciarMision1 = true;
+        }
+    }
+
+    if(recompensaReclamada1) {
+        if(colisionCompleta(protagonista,areaMensajeShovelKnight)) {
+            textoShovelKnightGracias.pintarTextoShovel();
+            if(textoDeGraciasShovel){
+                idIntervaloTextoShovel = setInterval(() => textoShovelKnightGracias.letrasTextoMision(), 100)
+                textoDeGraciasShovel = false;
+            }
+        }
+
+        if (textoShovelKnightGracias.cambioDePosicion === 7 && !graciasDadasShovel) {
+            
+            clearInterval(idIntervaloTextoShovel);
+            graciasDadasShovel = true
+            
+        }
+    }
+
+    if(colisionCompleta(protagonista,areaFinalNivel1) && terminarNivel) {
+        clearInterval(idElementoAnimado);
+        nivel1Completado = true;
+        plataformas = [];
+        iniciarNivel2();
+    }
 }

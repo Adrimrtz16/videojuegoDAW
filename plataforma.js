@@ -69,3 +69,14 @@ Plataforma.prototype.personajeCayendo = function() {
     } 
 
 }
+
+Plataforma.prototype.muerte = function () {
+    if (colisionCompleta(protagonista, this)) {
+        protagonista.x = 120;
+        protagonista.y = 896;
+        coleccionable2Cogido = false;
+        misionNivel2 = false;
+        recompensaReclamada2 = false;
+        iniciarMision2 = false;
+    }
+}

@@ -18,26 +18,11 @@ let idSprite;
 let idElementoAnimado;
 
 
-// Variables para el nivel 1
+// Variables de incio de nivel
 let nivel1Completado = false;
-let idIntervaloTextoShovel,intervaloColeccinable1;
-let coleccionable1Cogido = false
-let misionNivel1 = false;
-let recompensaReclamada = false;
-let mostrandoTexto = false;
-let textoDeGraciasShovel = true
-let graciasDadasShovel = false;
-let iniciarMision = false;
+let nivel2Completado = false;
 
 function moverPersonaje() {
-    if(protagonista.y - protagonista.tamañoY > 1080) {
-        protagonista.x = 120;
-        protagonista.y = 896;
-        coleccionable1Cogido = false;
-        misionNivel1 = false;
-        recompensaReclamada = false;
-        iniciarMision = false;
-    }
 
     if (xDerecha) {
         protagonista.generaPosicionDerecha();
@@ -72,93 +57,35 @@ function moverPersonaje() {
     
     ctxFrente.clearRect(0, 0, 1920, 1080);
 
-    // Programación del nivel 1
-    if(!nivel1Completado) {
-
-        elemntoAnimado.pintarHoguera();
-
-        if(misionNivel1) {
-            ctxFrente.drawImage(imgMision, 0, 0, fondo.width, fondo.height);
-            if(colisionCompleta(mensajeShovelKnight, protagonista)) {
-                recompensaReclamada = true;
-                misionNivel1 = false;
-            }
-        }
-        if(!iniciarMision) {
-            ctxFrente.drawImage(imgMision, 0, 0, fondo.width, fondo.height);
-        }
-
-        if(colisionCompleta(protagonista,mensajeShovelKnight) && !mostrandoTexto && !recompensaReclamada) {
-            idIntervaloTextoShovel = setInterval(() => textoShovelKnightMision.letrasTextoMision(), 100)
-            mostrandoTexto = true;
-            iniciarMision = true;
-        }
-
-        if(colisionCompleta(protagonista,mensajeShovelKnight) && !recompensaReclamada) {
-            textoShovelKnightMision.pintarTextoShovel();
-            if (textoShovelKnightMision.cambioDePosicion === 17) {
-                clearInterval(idIntervaloTextoShovel);
-            }
-        } else if (!colisionCompleta(protagonista,mensajeShovelKnight) && mostrandoTexto){
-            mostrandoTexto = false;
-            clearInterval(idIntervaloTextoShovel);
-        }
-
-        if (!coleccionable1Cogido) {
-            if (!intervaloColeccinable1) { // Solo crea el intervalo si no existe uno activo
-                intervaloColeccinable1 = setInterval(coleccionableOscilando, 50);
-            }
-            ctxFrente.drawImage(imgColeccionable1, 0, posicionY, fondo.width, fondo.height);
-            if(colisionCompleta(protagonista,areaColeccinable1)){
-                coleccionable1Cogido = true;
-                misionNivel1 = true;
-                mostrandoTexto = false;
-                iniciarMision = true;
-            }
-        }
-
-        if(recompensaReclamada) {
-            if(colisionCompleta(protagonista,mensajeShovelKnight)) {
-                textoShovelKnightGracias.pintarTextoShovel();
-                if(textoDeGraciasShovel){
-                    idIntervaloTextoShovel = setInterval(() => textoShovelKnightGracias.letrasTextoMision(), 100)
-                    textoDeGraciasShovel = false;
-                }
-            }
-
-            if (textoShovelKnightGracias.cambioDePosicion === 7 && !graciasDadasShovel) {
-                
-                clearInterval(idIntervaloTextoShovel);
-                graciasDadasShovel = true
-                
-            }
-        }
-
-        if(colisionCompleta(protagonista,areaFinalNivel1) && terminarNivel) {
-            clearInterval(idElementoAnimado);
-            nivel1Completado = true;
-            plataformas = [];
-            iniciarNivel2();
-        }
-
-    } 
-    // Fin de la programación del nivel 1
-
     protagonista.pintarPersonaje();
+
+    //lógica de los niveles
+    if(!nivel1Completado) {
+        nivel1();
+    } else if (!nivel2Completado) {
+        nivel2();
+    } 
+
 }
 
 function activaMovimiento(evt) {
     
     switch (evt.keyCode) {
+        case 37:
         case 65:
             xIzquierda = true;
             break;
+        case 39:
         case 68:
             xDerecha = true;
             break;
+        case 40:
+        case 16:
         case 83:
             correr = true;
             break;
+        case 87:
+        case 38:
         case 32:
             if(protagonista.aterrizado){
                 protagonista.velocidadCaida = 13
@@ -174,14 +101,18 @@ function activaMovimiento(evt) {
 function desactivaMovimiento(evt) {
 
     switch (evt.keyCode) {
+        case 37:
         case 65:
             xIzquierda = false;
             protagonista.estadoDeLaAnimacion = 1
             break;
+        case 39:
         case 68:
             xDerecha = false;
             protagonista.estadoDeLaAnimacion = 1
             break;
+        case 40:
+        case 16:
         case 83:
             correr = false;
             protagonista.personajeAndando();
@@ -201,26 +132,7 @@ frente = document.getElementById("frente");
 ctxFondo = fondo.getContext("2d");
 ctxFrente = frente.getContext("2d");
 
-function iniciarNivel1() {
-    
-    plataformas = plataformasNivel1;
-    textoShovelKnightMision.imagen = imgTextoShovel;
-    textoShovelKnightGracias.imagen = imgGraciasShovel;
 
-    fondoNivel1();
-
-    idPersonaje = setInterval(moverPersonaje,16);  
-    idSprite = setInterval(posicionDelProtagonista, 150);
-    idElementoAnimado = setInterval(fuegoHoguera,450)
-
-}
-
-function iniciarNivel2() {
-    protagonista.x = 120;
-    protagonista.y = 896;
-    plataformas = plataformasNivel2;
-    fondoNivel2(); 
-}
 
 
 
