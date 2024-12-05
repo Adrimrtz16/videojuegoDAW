@@ -53,9 +53,9 @@ Hoguera.prototype.pintarHoguera = function() {
                         192.62);      // Tamaño Y del comecocos que voy a dibujar
 }
 
-function BocadilloComic(numeroDeSprites) {
-    this.x = 75;
-    this.y = 300;
+function BocadilloComic(x,y,numeroDeSprites) {
+    this.x = x;
+    this.y = y;
     this.tamañoX = 256;
     this.tamañoY = 191;
     this.imagen;
@@ -207,6 +207,7 @@ function nivel1() {
 
     if(colisionCompleta(protagonista,areaFinalNivel1) && terminarNivel) {
         clearInterval(idElementoAnimado);
+        clearInterval(intervaloColeccinable1);
         nivel1Completado = true;
         plataformas = [];
         iniciarNivel2();

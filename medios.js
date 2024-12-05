@@ -1,4 +1,4 @@
-let totalImages = 14; // Número total de imágenes
+let totalImages = 16; // Número total de imágenes
 let loadedImages = 0;
 
 let imgHogueraShovel = new Image();
@@ -57,6 +57,14 @@ let imgPlataformasNivel2 = new Image();
 imgPlataformasNivel2.src = 'imagenes/plataformasLvl2.png';
 imgPlataformasNivel2.onload = checkAllImagesLoaded;
 
+let imgMisionMadeline = new Image();
+imgMisionMadeline.src = 'imagenes/misionMadeline.png';
+imgMisionMadeline.onload = checkAllImagesLoaded;
+
+let imgFinalNivel2 = new Image();
+imgFinalNivel2.src = 'imagenes/finalNivel2.png';
+imgFinalNivel2.onload = checkAllImagesLoaded;
+
 let imgFresa = [];
 for (let i = 0; i <= 47; i++) {
     imgFresa[i] = new Image();
@@ -65,6 +73,17 @@ for (let i = 0; i <= 47; i++) {
 }
 
 totalImages += 48;
+
+let imgMadeline = [];
+for (let i = 0; i <= 6; i++) {
+    imgMadeline[i] = new Image();
+    imgMadeline[i].src = `imagenes/madeline/m${i}.png`;
+    imgMadeline[i].onload = checkAllImagesLoaded;
+}
+
+totalImages += 7;
+
+
 
 function checkAllImagesLoaded() {
     loadedImages++;

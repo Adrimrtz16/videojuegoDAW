@@ -1,7 +1,7 @@
 let protagonista = new Personaje();
 let elemntoAnimado = new Hoguera();
-let textoShovelKnightMision = new BocadilloComic(18);
-let textoShovelKnightGracias = new BocadilloComic(8);
+let textoShovelKnightMision = new BocadilloComic(75,300,18);
+let textoShovelKnightGracias = new BocadilloComic(75,300,8);
 
 const topeDerecha = 1920-protagonista.tamañoX;
 const topeIzquierda = 0;
@@ -131,6 +131,9 @@ frente = document.getElementById("frente");
 
 ctxFondo = fondo.getContext("2d");
 ctxFrente = frente.getContext("2d");
+
+ctxFrente.imageSmoothingEnabled = false;
+ctxFondo.imageSmoothingEnabled = false;
 
 
 
