@@ -181,6 +181,7 @@ function nivel2() {
         clearInterval(idElementoAnimado);
         nivel2Completado = true;
         plataformas = [];
+        pinchos = [];
         iniciarNivel3();
         
     }

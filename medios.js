@@ -1,4 +1,4 @@
-let totalImages = 16; // Número total de imágenes
+let totalImages = 21; // Número total de imágenes
 let loadedImages = 0;
 
 let imgHogueraShovel = new Image();
@@ -64,6 +64,26 @@ imgMisionMadeline.onload = checkAllImagesLoaded;
 let imgFinalNivel2 = new Image();
 imgFinalNivel2.src = 'imagenes/finalNivel2.png';
 imgFinalNivel2.onload = checkAllImagesLoaded;
+
+let imgFondoNivel3_1 = new Image();
+imgFondoNivel3_1.src = 'imagenes/fondoNivel3/00.png';
+imgFondoNivel3_1.onload = checkAllImagesLoaded;
+
+let imgFondoNivel3_2 = new Image();
+imgFondoNivel3_2.src = 'imagenes/fondoNivel3/01a.png';
+imgFondoNivel3_2.onload = checkAllImagesLoaded;
+
+let imgFondoNivel3_3 = new Image();
+imgFondoNivel3_3.src = 'imagenes/fondoNivel3/01b.png';
+imgFondoNivel3_3.onload = checkAllImagesLoaded;
+
+let imgFondoNivel3_4 = new Image();
+imgFondoNivel3_4.src = 'imagenes/fondoNivel3/02a.png';
+imgFondoNivel3_4.onload = checkAllImagesLoaded;
+
+let imgFondoNivel3_5 = new Image();
+imgFondoNivel3_5.src = 'imagenes/fondoNivel3/02b.png';
+imgFondoNivel3_5.onload = checkAllImagesLoaded;
 
 let imgFresa = [];
 for (let i = 0; i <= 47; i++) {
