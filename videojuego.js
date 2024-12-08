@@ -17,10 +17,12 @@ let idPersonaje;
 let idSprite;
 let idElementoAnimado;
 
+let todoCargado = false;
 
 // Variables de incio de nivel
 let nivel1Completado = false;
 let nivel2Completado = false;
+let nivel3Completado = false;
 
 function moverPersonaje() {
 
@@ -64,7 +66,9 @@ function moverPersonaje() {
         nivel1();
     } else if (!nivel2Completado) {
         nivel2();
-    } 
+    } else if (!nivel3Completado) {
+        nivel3();
+    }
 
 }
 
@@ -123,18 +127,35 @@ function desactivaMovimiento(evt) {
     }
 }
 
+document.getElementById('botonJugar').addEventListener('click', function(event) {
+    event.preventDefault(); 
+    console.log('El botón Jugar fue pulsado');
+
+    if(todoCargado) {
+        empezarJuego();
+    }
+});
+
+function empezarJuego() {
+    document.body.innerHTML = `
+    <canvas id="fondo" width="1920" height="1080"></canvas>
+    <canvas id="frente" width="1920" height="1080"></canvas>
+    `;
+
+    fondo = document.getElementById("fondo");
+    frente = document.getElementById("frente");
+
+    ctxFondo = fondo.getContext("2d");
+    ctxFrente = frente.getContext("2d");
+
+    ctxFrente.imageSmoothingEnabled = false;
+    ctxFondo.imageSmoothingEnabled = false;
+    
+    iniciarNivel1(); 
+}
+
 document.addEventListener("keydown", activaMovimiento, false);
 document.addEventListener("keyup", desactivaMovimiento, false);
-
-fondo = document.getElementById("fondo");
-frente = document.getElementById("frente");
-
-ctxFondo = fondo.getContext("2d");
-ctxFrente = frente.getContext("2d");
-
-ctxFrente.imageSmoothingEnabled = false;
-ctxFondo.imageSmoothingEnabled = false;
-
 
 
 

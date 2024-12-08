@@ -109,11 +109,6 @@ function fondoNivel1() {
     ctxFondo.drawImage(imgFondoNivel1, 0, 0, fondo.width+35, fondo.height+35); 
     ctxFondo.fillStyle = "#ffffff";
     
-
-    // plataformasNivel2.forEach(plataforma => {
-    //     ctxFondo.fillRect(plataforma.x, plataforma.y, plataforma.tamañoX, plataforma.tamañoY); 
-    // });
-    
     ctxFondo.drawImage(imgFinalNivel1, 0, 0, fondo.width, fondo.height);
     ctxFondo.drawImage(imgPlataformasNivel1, 0, 0, fondo.width, fondo.height); 
     ctxFondo.drawImage(imgCuevaPorDentro, 0, 0, fondo.width, fondo.height); 
@@ -133,9 +128,11 @@ function iniciarNivel1() {
     idSprite = setInterval(posicionDelProtagonista, 150);
     idElementoAnimado = setInterval(fuegoHoguera,450)
 
+
 }
 
 function nivel1() {
+
 
     if(protagonista.y - protagonista.tamañoY > 1080) {
         protagonista.x = 120;
@@ -203,6 +200,10 @@ function nivel1() {
             graciasDadasShovel = true
             
         }
+    }
+
+    if(colisionCompleta(protagonista,areaFinalNivel1)) {
+        ctxFrente.drawImage(imgFinDeNivel, 1380, 700,500,50);
     }
 
     if(colisionCompleta(protagonista,areaFinalNivel1) && terminarNivel) {

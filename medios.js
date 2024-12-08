@@ -1,4 +1,4 @@
-let totalImages = 21; // Número total de imágenes
+let totalImages = 23; // Número total de imágenes
 let loadedImages = 0;
 
 let imgHogueraShovel = new Image();
@@ -85,6 +85,18 @@ let imgFondoNivel3_5 = new Image();
 imgFondoNivel3_5.src = 'imagenes/fondoNivel3/02b.png';
 imgFondoNivel3_5.onload = checkAllImagesLoaded;
 
+let imgPlataformasNivel3 = new Image();
+imgPlataformasNivel3.src = 'imagenes/plataformasLvl3.png';
+imgPlataformasNivel3.onload = checkAllImagesLoaded;
+
+let imgNube = new Image();
+imgNube.src = 'imagenes/nube.png';
+imgNube.onload = checkAllImagesLoaded;
+
+let imgFinDeNivel = new Image();
+imgFinDeNivel.src = 'imagenes/finDeNivel.png';
+imgFinDeNivel.onload = checkAllImagesLoaded;
+
 let imgFresa = [];
 for (let i = 0; i <= 47; i++) {
     imgFresa[i] = new Image();
@@ -108,6 +120,6 @@ totalImages += 7;
 function checkAllImagesLoaded() {
     loadedImages++;
     if (loadedImages === totalImages) {
-        iniciarNivel1(); 
+        todoCargado = true
     }
 }

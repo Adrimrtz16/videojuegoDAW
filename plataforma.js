@@ -1,8 +1,10 @@
-function Plataforma (x,y,tamañoX,tamañoY) {
+function Plataforma (x,y,tamañoX,tamañoY,movimiento) {
     this.x = x;
     this.y = y;
     this.tamañoX = tamañoX;
     this.tamañoY = tamañoY;
+    this.movimiento = movimiento;
+    this.cambioDeDireccion = false;
 }
 
 Plataforma.prototype.colisionConPlataformaDerecha = function () {
@@ -68,6 +70,34 @@ Plataforma.prototype.personajeCayendo = function() {
         
     } 
 
+}
+
+Plataforma.prototype.moverEnX = function (x) {
+    if(this.cambioDeDireccion === false) {
+        this.x += 1;
+        if(this.x === this.movimiento) {
+            this.cambioDeDireccion = true;
+        }
+    } else {
+        this.x -= 1;
+        if(this.x === x) {
+            this.cambioDeDireccion = false;
+        }
+    }
+}
+
+Plataforma.prototype.moverEnY = function (y) {
+    if(this.cambioDeDireccion === false) {
+        this.y -= 1;
+        if(this.y === this.movimiento) {
+            this.cambioDeDireccion = true;
+        }
+    } else {
+        this.y += 1;
+        if(this.y === y) {
+            this.cambioDeDireccion = false;
+        }
+    }
 }
 
 Plataforma.prototype.muerte = function () {

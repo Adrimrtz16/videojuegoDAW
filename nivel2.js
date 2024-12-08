@@ -177,6 +177,10 @@ function nivel2() {
         }
     }
 
+    if(colisionCompleta(protagonista,areaFinalNivel2)) {
+        ctxFrente.drawImage(imgFinDeNivel, 0, 50,500,50);
+    }
+
     if(colisionCompleta(protagonista,areaFinalNivel2) && terminarNivel) {
         clearInterval(idElementoAnimado);
         nivel2Completado = true;
