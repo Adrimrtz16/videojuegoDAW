@@ -16,7 +16,6 @@ function actualizarPuntuacion(nuevaPuntuacion) {
 function finalizarIntento(puntuacion) {
     actualizarPuntuacion(puntuacion);
     puntuacionFinal.sort((a, b) => b[3] - a[3]);
-    console.log('Puntuación final actualizada:', puntuacionFinal);
 }
 
 
@@ -63,7 +62,6 @@ function iniciarNivelPantallaFinal() {
     document.getElementById('botonRestart').onclick = function(event) {
 
         event.preventDefault(); 
-        console.log('El botón Jugar fue pulsado');
         
         coleccionable1Cogido = false;
         misionNivel1 = false;

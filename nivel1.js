@@ -243,8 +243,6 @@ function nivel1() {
         }
 
         audNivel1.pause();
-
-        console.log(puntuacion);
         
         clearInterval(idElementoAnimado);
         clearInterval(intervaloColeccinable1);

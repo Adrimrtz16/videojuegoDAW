@@ -179,7 +179,6 @@ document.getElementById('botonInicio').onclick = function(event) {
     };
 
     document.getElementById('botonRedes').onclick = function(event) {
-        console.log('El botón Redes fue pulsado');
         event.preventDefault();
         window.open('https://linktr.ee/adrimrtz15', '_blank');
     };
