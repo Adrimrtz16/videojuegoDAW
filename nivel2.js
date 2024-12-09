@@ -88,18 +88,34 @@ function fondoNivel2(){
     // pinchos.forEach(pincho => {
     //     ctxFondo.fillRect(pincho.x, pincho.y, pincho.tamañoX, pincho.tamañoY); 
     // });
-    
+    idPersonaje = setInterval(moverPersonaje,16);  
+    idSprite = setInterval(posicionDelProtagonista, 150);
+    idIntervaloAnimacionMadeline = setInterval(() => madeline.cambiarPosicionMadeline(), 400);
 
 }
 
 function iniciarNivel2() {
+
+    audNivel2.currentTime = 0;
+    audNivel2.loop = true;
+    audNivel2.volume = 0.2;
+    audNivel2.play();
+
+    saltar = false;
+    protagonista.haSaltado = false;
+    protagonista.haLLegadoArriba = false;
+    protagonista.velocidadCaida = 1
+    
     protagonista.x = 120;
     protagonista.y = 896;
     plataformas = plataformasNivel2;
-    idIntervaloAnimacionMadeline = setInterval(() => madeline.cambiarPosicionMadeline(), 400);
+    
     textoMadelineGracias.imagen = imgGraciasShovel;
     textoMadelineMision.imagen = imgMisionMadeline;
-    fondoNivel2(); 
+
+    ctxFondo.drawImage(imgIntroNivel2, 0, 0, fondo.width, fondo.height);
+
+    setTimeout(fondoNivel2,2500);
 }
 
 function nivel2() {
@@ -111,6 +127,14 @@ function nivel2() {
     });
 
     if(protagonista.y - protagonista.tamañoY > 1080) {
+
+        audMuerte.currentTime = 0.31;
+        audMuerte.volume = 0.2;
+        audMuerte.play();
+        setTimeout(() => audMuerte.pause(), 1000);
+
+        contadorDeMuertes++;
+
         protagonista.x = 120;
         protagonista.y = 896;
         coleccionable2Cogido = false;
@@ -182,11 +206,27 @@ function nivel2() {
     }
 
     if(colisionCompleta(protagonista,areaFinalNivel2) && terminarNivel) {
+
+        if(coleccionable2Cogido && recompensaReclamada2) {
+            puntuacion += 1000;
+        } else if (coleccionable2Cogido) {
+            puntuacion += 500;
+        } else {
+            puntuacion += 250;
+        }
+
+        clearInterval(idPersonaje);
+        clearInterval(idSprite);
         clearInterval(idElementoAnimado);
+
+        audNivel2.pause();
+
         nivel2Completado = true;
         plataformas = [];
         pinchos = [];
         iniciarNivel3();
         
+        ctxFrente.clearRect(0, 0, 1920, 1080);
+
     }
 }

@@ -1,4 +1,4 @@
-let totalImages = 23; // Número total de imágenes
+let totalImages = 26; // Número total de imágenes
 let loadedImages = 0;
 
 let imgHogueraShovel = new Image();
@@ -97,6 +97,36 @@ let imgFinDeNivel = new Image();
 imgFinDeNivel.src = 'imagenes/finDeNivel.png';
 imgFinDeNivel.onload = checkAllImagesLoaded;
 
+let imgIntroNivel1 = new Image();
+imgIntroNivel1.src = 'imagenes/introNivel1.png';
+imgIntroNivel1.onload = checkAllImagesLoaded;
+
+let imgIntroNivel2 = new Image();
+imgIntroNivel2.src = 'imagenes/introNivel2.png';
+imgIntroNivel2.onload = checkAllImagesLoaded;
+
+let imgIntroNivel3 = new Image();
+imgIntroNivel3.src = 'imagenes/introNivel3.png';
+imgIntroNivel3.onload = checkAllImagesLoaded;
+
+let imgPinchito = new Image();
+imgPinchito.src = 'imagenes/pinchito.png';
+imgPinchito.onload = checkAllImagesLoaded;
+
+let imgMisionTails = new Image();
+imgMisionTails.src = 'imagenes/misionTails.png';
+imgMisionTails.onload = checkAllImagesLoaded;
+
+let audNivel1 = new Audio('sonidos/nivel1.mp3');
+
+let audNivel2 = new Audio('sonidos/nivel2.mp3');
+
+let audNivel3 = new Audio('sonidos/nivel3.mp3');
+
+let audMuerte = new Audio('sonidos/muerte.mp3');
+
+let audColeccionable1 = new Audio('sonidos/coleccionable1.mp3');
+
 let imgFresa = [];
 for (let i = 0; i <= 47; i++) {
     imgFresa[i] = new Image();
@@ -115,7 +145,23 @@ for (let i = 0; i <= 6; i++) {
 
 totalImages += 7;
 
+let imgTails = [];
+for (let i = 0; i <= 6; i++) {
+    imgTails[i] = new Image();
+    imgTails[i].src = `imagenes/tails/t${i}.png`;
+    imgTails[i].onload = checkAllImagesLoaded;
+}
 
+totalImages += 7;
+
+let imgAnillo = [];
+for (let i = 0; i <= 3; i++) {
+    imgAnillo[i] = new Image();
+    imgAnillo[i].src = `imagenes/anillo/a${i}.png`;
+    imgAnillo[i].onload = checkAllImagesLoaded;
+}
+
+totalImages += 4;
 
 function checkAllImagesLoaded() {
     loadedImages++;

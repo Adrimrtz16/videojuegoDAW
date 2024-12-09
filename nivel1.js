@@ -113,21 +113,27 @@ function fondoNivel1() {
     ctxFondo.drawImage(imgPlataformasNivel1, 0, 0, fondo.width, fondo.height); 
     ctxFondo.drawImage(imgCuevaPorDentro, 0, 0, fondo.width, fondo.height); 
     ctxFondo.drawImage(imgShovelKnight, 35, 445); 
-    
+ 
+    idPersonaje = setInterval(moverPersonaje,16);  
+    idSprite = setInterval(posicionDelProtagonista, 150);
+    idElementoAnimado = setInterval(fuegoHoguera,450);
+
 }
 
 function iniciarNivel1() {
+
+    audNivel1.currentTime = 0;
+    audNivel1.loop = true;
+    audNivel1.volume = 0.1;
+    audNivel1.play();
     
+    ctxFondo.drawImage(imgIntroNivel1, 0, 0, fondo.width, fondo.height);
+
     plataformas = plataformasNivel1;
     textoShovelKnightMision.imagen = imgTextoShovel;
     textoShovelKnightGracias.imagen = imgGraciasShovel;
 
-    fondoNivel1();
-
-    idPersonaje = setInterval(moverPersonaje,16);  
-    idSprite = setInterval(posicionDelProtagonista, 150);
-    idElementoAnimado = setInterval(fuegoHoguera,450)
-
+    setTimeout(fondoNivel1, 2500);
 
 }
 
@@ -135,6 +141,14 @@ function nivel1() {
 
 
     if(protagonista.y - protagonista.tamañoY > 1080) {
+
+        audMuerte.currentTime = 0.31;
+        audMuerte.volume = 0.2;
+        audMuerte.play();
+        setTimeout(() => audMuerte.pause(), 1000);
+
+        contadorDeMuertes++;
+
         protagonista.x = 120;
         protagonista.y = 896;
         coleccionable1Cogido = false;
@@ -178,6 +192,11 @@ function nivel1() {
         }
         ctxFrente.drawImage(imgColeccionable1, 0, posicionY, fondo.width, fondo.height);
         if(colisionCompleta(protagonista,areaColeccinable1)){
+
+            audColeccionable1.currentTime = 5.5;
+            audColeccionable1.volume = 0.2;
+            audColeccionable1.play();
+
             coleccionable1Cogido = true;
             misionNivel1 = true;
             mostrandoTexto = false;
@@ -207,10 +226,29 @@ function nivel1() {
     }
 
     if(colisionCompleta(protagonista,areaFinalNivel1) && terminarNivel) {
+
+        if(coleccionable1Cogido && recompensaReclamada1) {
+            puntuacion += 1000;
+        } else if (coleccionable1Cogido) {
+            puntuacion += 500;
+        } else {
+            puntuacion += 250;
+        }
+
+        audNivel1.pause();
+
+        console.log(puntuacion);
+        
         clearInterval(idElementoAnimado);
         clearInterval(intervaloColeccinable1);
+        clearInterval(idPersonaje);
+        clearInterval(idSprite);
+
         nivel1Completado = true;
         plataformas = [];
         iniciarNivel2();
+
+        ctxFrente.clearRect(0, 0, 1920, 1080);
+        
     }
 }

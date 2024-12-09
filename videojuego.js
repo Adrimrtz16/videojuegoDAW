@@ -1,7 +1,12 @@
+let contadorDeMuertes = 0;
+let puntuacion = 0;
+
 let protagonista = new Personaje();
 let elemntoAnimado = new Hoguera();
 let textoShovelKnightMision = new BocadilloComic(75,300,18);
 let textoShovelKnightGracias = new BocadilloComic(75,300,8);
+
+let audIntro = new Audio('sonidos/intro.mp3');
 
 const topeDerecha = 1920-protagonista.tamañoX;
 const topeIzquierda = 0;
@@ -56,12 +61,11 @@ function moverPersonaje() {
             plataforma.personajeCayendo();
         });
     }
-    
+
     ctxFrente.clearRect(0, 0, 1920, 1080);
 
     protagonista.pintarPersonaje();
 
-    //lógica de los niveles
     if(!nivel1Completado) {
         nivel1();
     } else if (!nivel2Completado) {
@@ -70,6 +74,7 @@ function moverPersonaje() {
         nivel3();
     }
 
+    
 }
 
 function activaMovimiento(evt) {
@@ -127,14 +132,51 @@ function desactivaMovimiento(evt) {
     }
 }
 
-document.getElementById('botonJugar').addEventListener('click', function(event) {
+document.getElementById('botonInicio').onclick = function(event) {
     event.preventDefault(); 
-    console.log('El botón Jugar fue pulsado');
 
-    if(todoCargado) {
-        empezarJuego();
-    }
-});
+    audIntro.currentTime = 0;
+    audIntro.loop = true;
+    audIntro.volume = 0.2;
+    audIntro.play();
+
+    document.body.innerHTML = `
+        <div class="container">
+        <a class="button" href="#" style="--color:#1e9bff;">
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          Trailer
+        </a>
+        <a class="button" href="#" style="--color: #ff1867;" id="botonJugar">
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          Jugar
+        </a>
+        <a class="button" href="#" style="--color: #6eff3e;">
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          Redes
+        </a>
+      </div>
+    `
+    document.getElementById('botonJugar').onclick = function(event) {
+        event.preventDefault(); 
+        console.log('El botón Jugar fue pulsado');
+    
+        if(todoCargado) {
+            audIntro.pause();
+            empezarJuego();
+        }
+    };
+};
+
+
 
 function empezarJuego() {
     document.body.innerHTML = `

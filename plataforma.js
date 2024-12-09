@@ -102,11 +102,55 @@ Plataforma.prototype.moverEnY = function (y) {
 
 Plataforma.prototype.muerte = function () {
     if (colisionCompleta(protagonista, this)) {
-        protagonista.x = 120;
-        protagonista.y = 896;
+        
+        audMuerte.currentTime = 0.31;
+        audMuerte.volume = 0.2;
+        audMuerte.play();
+        setTimeout(() => audMuerte.pause(), 1000);
+
+        contadorDeMuertes++;
+
         coleccionable2Cogido = false;
         misionNivel2 = false;
         recompensaReclamada2 = false;
         iniciarMision2 = false;
+        
+        saltar = false;
+        protagonista.haSaltado = false;
+        protagonista.haLLegadoArriba = false;
+        protagonista.velocidadCaida = 1
+
+        protagonista.x = 120;
+        protagonista.y = 896;
+
     }
+}
+
+Plataforma.prototype.muerte3 = function () {
+    if (colisionCompleta(protagonista, this)) {
+        
+        audMuerte.currentTime = 0.31;
+        audMuerte.volume = 0.2;
+        audMuerte.play();
+        setTimeout(() => audMuerte.pause(), 1000);
+
+        contadorDeMuertes++;
+
+        coleccionable3Cogido = false;
+        misionNivel3 = false;
+        recompensaReclamada3 = false;
+        iniciarMision3 = false;
+
+        saltar = false;
+        protagonista.haSaltado = false;
+        protagonista.haLLegadoArriba = false;
+        protagonista.velocidadCaida = 1
+
+        protagonista.x = 120;
+        protagonista.y = 896;
+    }
+}
+
+function moverseDespuesDeMuerto() {
+    idPersonaje = setInterval(moverPersonaje,16);  
 }
