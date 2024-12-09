@@ -24,7 +24,7 @@ function finalizarIntento(puntuacion) {
 
 function iniciarNivelPantallaFinal() {
     
-    ecuacionPuntuacion = puntuacion - contadorDeMuertes * 3 - segundos * 0.2;
+    ecuacionPuntuacion = puntuacion - contadorDeMuertes * 5 - segundos * 0.5;
     let intento = [puntuacion, contadorDeMuertes, segundos, ecuacionPuntuacion];
     puntuacionIntento.push(intento);
     finalizarIntento(intento);

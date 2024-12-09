@@ -114,28 +114,28 @@ function iniciarNivel3() {
     textoTailsGracias.imagen = imgGraciasShovel;
     textoTailsMision.imagen = imgMisionTails;
 
-    idMoverPinchos1 = setTimeout(() => {
-        setInterval(() => pinchosNivel3[2].moverEnY(207), 7);
+    setTimeout(() => {
+        idMoverPinchos1 = setInterval(() => pinchosNivel3[2].moverEnY(207), 7);
     }, 0);
 
-    idMoverPinchos2 = setTimeout(() => {
-        setInterval(() => pinchosNivel3[3].moverEnY(207), 7);
+    setTimeout(() => {
+        idMoverPinchos2 = setInterval(() => pinchosNivel3[3].moverEnY(207), 7);
     }, 500);
 
-    idMoverPinchos3 = setTimeout(() => {
-        setInterval(() => pinchosNivel3[4].moverEnY(207), 7);
+    setTimeout(() => {
+        idMoverPinchos3 = setInterval(() => pinchosNivel3[4].moverEnY(207), 7);
     }, 1000);
 
-    idMoverPinchos4 = setTimeout(() => {
-        setInterval(() => pinchosNivel3[5].moverEnY(591), 7);
+    setTimeout(() => {
+        idMoverPinchos4 = setInterval(() => pinchosNivel3[5].moverEnY(591), 7);
     }, 1500);
 
-    idMoverPinchos5 = setTimeout(() => {
-        setInterval(() => pinchosNivel3[6].moverEnY(591), 7);
+    setTimeout(() => {
+        idMoverPinchos5 = setInterval(() => pinchosNivel3[6].moverEnY(591), 7);
     }, 2000);
 
-    idMoverPinchos6 = setTimeout(() => {
-        setInterval(() => pinchosNivel3[7].moverEnY(591), 7);
+    setTimeout(() => {
+        idMoverPinchos6 = setInterval(() => pinchosNivel3[7].moverEnY(591), 7);
     }, 2500);
 
     ctxFondo.drawImage(imgIntroNivel3, 0, 0, fondo.width, fondo.height);

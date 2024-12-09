@@ -203,6 +203,9 @@ function empezarJuego() {
     ctxFrente.imageSmoothingEnabled = false;
     ctxFondo.imageSmoothingEnabled = false;
     
+    protagonista.x = 120;
+    protagonista.y = 896;
+
     iniciarNivel1(); 
 }
 
