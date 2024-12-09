@@ -54,7 +54,7 @@ Fresa.prototype.cambiarPosicionFresa = function() {
 }
 
 Fresa.prototype.pintarFresa = function() {
-    ctxFrente.drawImage(imgFresa[this.posicionFresa], // Imagen completa con todos los comecocos (Sprite)
+    ctxFrente.drawImage(imgFresa[this.posicionFresa], // Imagen completa 
                         0, 0,                         // Coordenadas de recorte en el sprite
                         this.tamañoX, this.tamañoY,   // Tamaño del recorte
                         this.x, this.y,               // Posición en la pantalla
@@ -74,20 +74,18 @@ Madeline.prototype.cambiarPosicionMadeline = function() {
 }
 
 Madeline.prototype.pintarMadeline = function() {
-    ctxFrente.drawImage(imgMadeline[this.posicionMadeline], // Imagen completa con todos los comecocos (Sprite)
-                        0, 0,                         // Coordenadas de recorte en el sprite
-                        this.tamañoX, this.tamañoY,   // Tamaño del recorte
-                        this.x, this.y,               // Posición en la pantalla
-                        this.tamañoX/2, this.tamañoY/2);  // Tamaño del dibujo
+    ctxFrente.drawImage(imgMadeline[this.posicionMadeline], 
+                        0, 0,                         
+                        this.tamañoX, this.tamañoY,  
+                        this.x, this.y,              
+                        this.tamañoX/2, this.tamañoY/2);  
 }
 
 function fondoNivel2(){
     ctxFondo.drawImage(imgFondoNivel2, 0, 0, fondo.width+75, fondo.height+75);
     ctxFondo.drawImage(imgFinalNivel2, -95, 5, fondo.width, fondo.height);
     ctxFondo.drawImage(imgPlataformasNivel2, 0, 0, fondo.width, fondo.height);
-    // pinchos.forEach(pincho => {
-    //     ctxFondo.fillRect(pincho.x, pincho.y, pincho.tamañoX, pincho.tamañoY); 
-    // });
+
     idPersonaje = setInterval(moverPersonaje,16);  
     idSprite = setInterval(posicionDelProtagonista, 150);
     idIntervaloAnimacionMadeline = setInterval(() => madeline.cambiarPosicionMadeline(), 400);

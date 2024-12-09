@@ -1,20 +1,18 @@
 let ecuacionPuntuacion;
 let puntuacionIntento= [];
-// Recuperar la puntuación final de localStorage al cargar la página
+
 let puntuacionFinal = JSON.parse(localStorage.getItem('puntuacionFinal')) || [];
 
-// Función para almacenar el array de puntuación final en localStorage
+
 function almacenarPuntosEnLocalStorage(puntuacionFinal) {
-    localStorage.setItem('puntuacionFinal', JSON.stringify(puntuacionFinal)); // Almacena los puntos
+    localStorage.setItem('puntuacionFinal', JSON.stringify(puntuacionFinal));
 }
 
-// Función para actualizar la puntuación final
 function actualizarPuntuacion(nuevaPuntuacion) {
     puntuacionFinal.push(nuevaPuntuacion);
     almacenarPuntosEnLocalStorage(puntuacionFinal);
 }
 
-// Función para finalizar el intento y actualizar la puntuación
 function finalizarIntento(puntuacion) {
     actualizarPuntuacion(puntuacion);
     puntuacionFinal.sort((a, b) => b[3] - a[3]);
@@ -28,9 +26,10 @@ function iniciarNivelPantallaFinal() {
     let intento = [puntuacion, contadorDeMuertes, segundos, ecuacionPuntuacion];
     puntuacionIntento.push(intento);
     finalizarIntento(intento);
-    // audOutro.currentTime = 0;
-    // audOutro.volume = 0.2;
-    // audOutro.play();
+    
+    audOutro.currentTime = 0;
+    audOutro.volume = 0.2;
+    audOutro.play();
 
     document.body.innerHTML = `
     <table class="puntuaciones">

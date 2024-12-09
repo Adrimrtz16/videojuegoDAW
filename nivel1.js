@@ -71,26 +71,26 @@ function BocadilloComic(x,y,numeroDeSprites) {
 }
 
 BocadilloComic.prototype.pintarTextoShovel = function() {
-    ctxFrente.drawImage(this.imagen, // Imagen completa con todos los comecocos (Sprite)
-                        this.animacionSprite[this.cambioDePosicion][0],    // Posicion X del sprite donde se encuentra el comecocos que voy a recortar del sprite para dibujar
-                        this.animacionSprite[this.cambioDePosicion][1],	  // Posicion Y del sprite donde se encuentra el comecocos que voy a recortar del sprite para dibujar
-                        this.tamañoX, 		    // Tamaño X del comecocos que voy a recortar para dibujar
-                        this.tamañoY,	        // Tamaño Y del comecocos que voy a recortar para dibujar
-                        this.x,                // Posicion x de pantalla donde voy a dibujar el comecocos recortado
-                        this.y,				            // Posicion y de pantalla donde voy a dibujar el comecocos recortado
-                        this.tamañoX,		    // Tamaño X del comecocos que voy a dibujar
-                        this.tamañoY);      // Tamaño Y del comecocos que voy a dibujar
+    ctxFrente.drawImage(this.imagen, 
+                        this.animacionSprite[this.cambioDePosicion][0],   
+                        this.animacionSprite[this.cambioDePosicion][1],	  
+                        this.tamañoX, 		    
+                        this.tamañoY,	        
+                        this.x,                
+                        this.y,				        
+                        this.tamañoX,		   
+                        this.tamañoY);      
 
        
 }
 
 BocadilloComic.prototype.letrasTextoMision = function () {
-    this.cambioDePosicion = (this.cambioDePosicion + 1) % this.numeroDeSprites;  // Cargará posiciones 0 y 1 del array
+    this.cambioDePosicion = (this.cambioDePosicion + 1) % this.numeroDeSprites;  
 }
 
 function fuegoHoguera() {
 
-    posicionHoguera = (posicionHoguera + 1) % 3;  // Cargará posiciones 0 y 1 del array
+    posicionHoguera = (posicionHoguera + 1) % 3;  
 
 }
 

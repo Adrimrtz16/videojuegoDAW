@@ -131,6 +131,8 @@ let audColeccionable2 = new Audio('sonidos/coleccionable2.wav');
 
 let audColeccionable3 = new Audio('sonidos/coleccionable3.mp3');
 
+let audOutro = new Audio('sonidos/outro.mp3');
+
 let imgFresa = [];
 for (let i = 0; i <= 47; i++) {
     imgFresa[i] = new Image();

@@ -55,9 +55,7 @@ Plataforma.prototype.colisionConPlataformaAlSaltar = function () {
 
 Plataforma.prototype.personajeCayendo = function() {
 
-    // Verificamos si hay colisión con la plataforma
     if (colisionCompleta(protagonista, this)) {
-        // Ajustamos exactamente la posición del personaje a la parte superior de la plataforma
         protagonista.y = (this.y - protagonista.tamañoY);
         protagonista.aterrizado = true;
         protagonista.saltarEnAire = true;
