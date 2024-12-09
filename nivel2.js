@@ -177,6 +177,11 @@ function nivel2() {
         }
         fresa.pintarFresa();
         if(colisionCompleta(protagonista,areaColeccinable2)){
+
+            audColeccionable2.currentTime = 0;
+            audColeccionable2.volume = 0.2;
+            audColeccionable2.play();
+
             coleccionable2Cogido = true;
             misionNivel2 = true;
             mostrandoTexto2 = false;
@@ -223,7 +228,6 @@ function nivel2() {
 
         nivel2Completado = true;
         plataformas = [];
-        pinchos = [];
         iniciarNivel3();
         
         ctxFrente.clearRect(0, 0, 1920, 1080);

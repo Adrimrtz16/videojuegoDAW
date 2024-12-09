@@ -43,12 +43,15 @@ let pinchosNivel3 = [
     new Plataforma(1265, 561, 98, 98, 384),
 ]
 
-let areaMensajeTails = new Plataforma(0,768,384,256);
+let areaMensajeTails = new Plataforma(256,768,384,256);
 let areaColeccinable3 = new Plataforma(128,640,64,64);
-let areaFinalNivel3 = new Plataforma(138, 0, 193, 356);
+let areaFinalNivel3 = new Plataforma(1472, 0, 512, 320);
 
-let textoTailsMision = new BocadilloComic(386,704,17);
-let textoTailsGracias = new BocadilloComic(386,704,8);
+let textoTailsMision = new BocadilloComic(400,704,17);
+let textoTailsGracias = new BocadilloComic(400,704,8);
+
+let anillo = new AnimacionNivel3 (128,640,64,64,3,imgAnillo);
+let tails = new AnimacionNivel3(360,770,64,64,7,imgTails);
 
 function AnimacionNivel3(x, y, tamañoX, tamañoY,numeroDeImagenes, imagen) {
     this.x = x;
@@ -72,9 +75,6 @@ AnimacionNivel3.prototype.pintarAnimacionNivel3 = function() {
                         this.tamañoX*3, this.tamañoY*3);  // Tamaño del dibujo
 }
 
-let anillo = new AnimacionNivel3 (128,640,64,64,3,imgAnillo);
-let tails = new AnimacionNivel3(360,770,64,64,7,imgTails);
-
 function fondoNivel3(){
     ctxFondo.drawImage(imgFondoNivel3_1, 0, 0, fondo.width, fondo.height);
     ctxFondo.drawImage(imgFondoNivel3_2, 0, 0, fondo.width, fondo.height);
@@ -86,13 +86,6 @@ function fondoNivel3(){
     idMoverPlataforma1 = setInterval(() => plataformas[2].moverEnX(640), 5)
     idMoverPlataforma2 = setInterval(() => plataformas[3].moverEnY(960), 5)
     idMoverPlataforma3 = setInterval(() => plataformas[10].moverEnY(640), 5)
-
-    idMoverPinchos1 = setInterval(() => pinchosNivel3[2].moverEnY(207), 5)
-    idMoverPinchos2 = setInterval(() => pinchosNivel3[3].moverEnY(207), 5)
-    idMoverPinchos3 = setInterval(() => pinchosNivel3[4].moverEnY(207), 5)
-    idMoverPinchos4 = setInterval(() => pinchosNivel3[5].moverEnY(591), 5)
-    idMoverPinchos5 = setInterval(() => pinchosNivel3[6].moverEnY(591), 5)
-    idMoverPinchos6 = setInterval(() => pinchosNivel3[7].moverEnY(591), 5)
 
     idPersonaje = setInterval(moverPersonaje,16);  
     idSprite = setInterval(posicionDelProtagonista, 150);
@@ -120,6 +113,30 @@ function iniciarNivel3() {
 
     textoTailsGracias.imagen = imgGraciasShovel;
     textoTailsMision.imagen = imgMisionTails;
+
+    idMoverPinchos1 = setTimeout(() => {
+        setInterval(() => pinchosNivel3[2].moverEnY(207), 7);
+    }, 0);
+
+    idMoverPinchos2 = setTimeout(() => {
+        setInterval(() => pinchosNivel3[3].moverEnY(207), 7);
+    }, 500);
+
+    idMoverPinchos3 = setTimeout(() => {
+        setInterval(() => pinchosNivel3[4].moverEnY(207), 7);
+    }, 1000);
+
+    idMoverPinchos4 = setTimeout(() => {
+        setInterval(() => pinchosNivel3[5].moverEnY(591), 7);
+    }, 1500);
+
+    idMoverPinchos5 = setTimeout(() => {
+        setInterval(() => pinchosNivel3[6].moverEnY(591), 7);
+    }, 2000);
+
+    idMoverPinchos6 = setTimeout(() => {
+        setInterval(() => pinchosNivel3[7].moverEnY(591), 7);
+    }, 2500);
 
     ctxFondo.drawImage(imgIntroNivel3, 0, 0, fondo.width, fondo.height);
 
@@ -194,6 +211,11 @@ function nivel3() {
     if (!coleccionable3Cogido) {
         anillo.pintarAnimacionNivel3();
         if(colisionCompleta(protagonista,areaColeccinable3)){
+
+            audColeccionable3.currentTime = 0;
+            audColeccionable3.volume = 0.2;
+            audColeccionable3.play();
+
             coleccionable3Cogido = true;
             misionNivel3 = true;
             mostrandoTexto3 = false;
@@ -218,11 +240,43 @@ function nivel3() {
         }
     }
 
+    if(colisionCompleta(protagonista,areaFinalNivel3)) {
+        ctxFrente.drawImage(imgFinDeNivel, 1420, 10,500,50);
+    }
+
     if(colisionCompleta(protagonista,areaFinalNivel3) && terminarNivel) {
-        clearInterval(idElementoAnimado);
+        if(coleccionable3Cogido && recompensaReclamada3) {
+            puntuacion += 1000;
+        } else if (coleccionable3Cogido) {
+            puntuacion += 500;
+        } else {
+            puntuacion += 250;
+        }
+
+        clearInterval(idPersonaje);
+        clearInterval(idSprite);
+        clearInterval(idMoverPlataforma1);
+        clearInterval(idMoverPlataforma2);
+        clearInterval(idMoverPlataforma3);
+        clearInterval(idMoverPinchos1);
+        clearInterval(idMoverPinchos2);
+        clearInterval(idMoverPinchos3);
+        clearInterval(idMoverPinchos4);
+        clearInterval(idMoverPinchos5);
+        clearInterval(idMoverPinchos6);
+        clearInterval(idIntervaloAnimacionTails);
+        clearInterval(idIntervaloAnillo);
+        clearInterval(idIntervaloTextoMadeline);
+
+        clearInterval(idContadorSegundos);
+        audNivel3.pause();
+
         nivel3Completado = true;
         plataformas = [];
-        iniciarNivel3();
+        pinchos = [];
+        iniciarNivelPantallaFinal();
+        
+        ctxFrente.clearRect(0, 0, 1920, 1080);
         
     }
 }

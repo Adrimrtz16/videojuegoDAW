@@ -142,12 +142,12 @@ document.getElementById('botonInicio').onclick = function(event) {
 
     document.body.innerHTML = `
         <div class="container">
-        <a class="button" href="#" style="--color:#1e9bff;">
+        <a class="button" href="#" style="--color:#1e9bff;" id="botonControles">
           <span></span>
           <span></span>
           <span></span>
           <span></span>
-          Trailer
+          Controles
         </a>
         <a class="button" href="#" style="--color: #ff1867;" id="botonJugar">
           <span></span>
@@ -156,7 +156,7 @@ document.getElementById('botonInicio').onclick = function(event) {
           <span></span>
           Jugar
         </a>
-        <a class="button" href="#" style="--color: #6eff3e;">
+        <a class="button" href="#" style="--color: #6eff3e;" id="botonRedes">
           <span></span>
           <span></span>
           <span></span>
@@ -167,12 +167,22 @@ document.getElementById('botonInicio').onclick = function(event) {
     `
     document.getElementById('botonJugar').onclick = function(event) {
         event.preventDefault(); 
-        console.log('El botón Jugar fue pulsado');
     
         if(todoCargado) {
             audIntro.pause();
             empezarJuego();
         }
+    };
+
+    document.getElementById('botonControles').onclick = function(event) {
+        event.preventDefault(); 
+        window.open('imagenes/controles.jpg', '_blank');
+    };
+
+    document.getElementById('botonRedes').onclick = function(event) {
+        console.log('El botón Redes fue pulsado');
+        event.preventDefault();
+        window.open('https://linktr.ee/adrimrtz15', '_blank');
     };
 };
 

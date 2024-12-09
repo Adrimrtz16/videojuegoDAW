@@ -1,6 +1,9 @@
 let posicionHoguera = 0;
 let posicionTextoMision1 = 0;
-let posicionGraciasShovel = 0
+let posicionGraciasShovel = 0;
+
+let segundos = 0;
+let idContadorSegundos;
 
 let subir = false
 
@@ -122,6 +125,10 @@ function fondoNivel1() {
 
 function iniciarNivel1() {
 
+    idContadorSegundos = setInterval(() => {
+        segundos++;
+    }, 1000);
+
     audNivel1.currentTime = 0;
     audNivel1.loop = true;
     audNivel1.volume = 0.1;
@@ -193,7 +200,7 @@ function nivel1() {
         ctxFrente.drawImage(imgColeccionable1, 0, posicionY, fondo.width, fondo.height);
         if(colisionCompleta(protagonista,areaColeccinable1)){
 
-            audColeccionable1.currentTime = 5.5;
+            audColeccionable1.currentTime = 5.55;
             audColeccionable1.volume = 0.2;
             audColeccionable1.play();
 

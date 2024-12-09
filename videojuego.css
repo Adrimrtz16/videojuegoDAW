@@ -156,3 +156,24 @@ canvas {
 .button:hover span:nth-child(4 ) {
   bottom: 50%;
 }
+
+body .puntuaciones {
+  background-color: #27282c;
+  display: flex;
+  flex-direction: column; /* Alinea los elementos en una columna */
+  justify-content: center;
+  align-items: center;
+  height: 40vh; /* Asegura que el body ocupe toda la altura de la ventana */
+  margin: 0; /* Elimina cualquier margen predeterminado */
+}
+
+.puntuaciones {
+  color: white;
+  font-size: 2rem; /* Ajusta el tamaño según sea necesario */
+  font-family: 'Poppins', sans-serif; /* Usa la fuente 'Poppins' */
+  border-spacing: 20px; /* Espaciado entre columnas */
+}
+
+.puntuaciones td, .puntuaciones th {
+  padding: 10px 20px; /* Ajusta los valores según sea necesario */
+}

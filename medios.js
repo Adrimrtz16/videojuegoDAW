@@ -127,6 +127,10 @@ let audMuerte = new Audio('sonidos/muerte.mp3');
 
 let audColeccionable1 = new Audio('sonidos/coleccionable1.mp3');
 
+let audColeccionable2 = new Audio('sonidos/coleccionable2.wav');
+
+let audColeccionable3 = new Audio('sonidos/coleccionable3.mp3');
+
 let imgFresa = [];
 for (let i = 0; i <= 47; i++) {
     imgFresa[i] = new Image();
